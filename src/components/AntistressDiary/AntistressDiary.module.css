@@ -132,4 +132,21 @@
 
 .throwAnimation {
   animation: throwPaper 2s ease-in forwards;
+}
+
+.backLink {
+  position: fixed;
+  left: 20px;
+  top: 20px;
+  text-decoration: none;
+  color: white;
+  font-family: 'Indie Flower', cursive;
+  font-size: 20px;
+  padding: 10px;
+  transition: all 0.3s ease;
+  z-index: 10;
+}
+
+.backLink:hover {
+  transform: translateX(-5px);
 } 
