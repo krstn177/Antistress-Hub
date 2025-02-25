@@ -1,0 +1,135 @@
+.container {
+  background-color: #a6a6a6;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-height: 100vh;
+  position: relative;
+  padding: 2rem;
+  gap: 2rem;  /* Space between pages */
+}
+
+.paper {
+  background: white;
+  padding: 40px;
+  width: 600px;
+  box-shadow: 8px 8px 10px rgba(0,0,0,0.5);
+  position: relative;
+  transform-origin: center center;
+  display: flex;
+  flex-direction: column;
+  min-height: fit-content;
+}
+
+.headerText {
+  text-align: center;
+  margin-bottom: 20px;
+  font-family: 'Indie Flower', cursive;
+  font-size: 25px;
+}
+
+.headerText p {
+  margin: 5px 0;
+}
+
+.prompt {
+  margin-bottom: 20px;
+  font-size: 25px;
+  border-bottom: 2px dotted #777;
+  padding-bottom: 10px;
+  font-family: 'Indie Flower', cursive;
+}
+
+.lineInput {
+  width: 100%;
+  border: none;
+  border-bottom: 2px dotted #777;
+  margin-bottom: 15px;
+  resize: none;
+  font-size: 20px;
+  line-height: 1.5;
+  background: transparent;
+  padding: 5px 0;
+  font-family: 'Indie Flower', cursive;
+
+}
+
+.lineInput:focus {
+  outline: none;
+  border-bottom-color: #111;
+}
+
+.addLine{
+  text-align: center;
+  margin-top: 20px;
+  cursor: pointer;
+  font-size: 20px;
+  font-weight: bold;
+  border: 1px solid gray;
+  border-radius: 5px;
+  padding: 5px 10px;
+  transition: background 0.3s ease;
+}
+
+.addLine:hover {
+  background: darkgray;
+}
+
+
+.throwButton {
+  position: fixed;
+  right: 20px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 60px;
+  height: 60px;
+  border: none;
+  background: #ff4444;
+  color: white;
+  border-radius: 50%;
+  cursor: pointer;
+  font-size: 25px;
+  transition: all 0.3s ease;
+}
+
+.throwButton:hover {
+  background: #cc0000;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+.throwButton:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.recycleBin {
+  position: fixed;
+  bottom: 20px;
+  left: 20px;
+  font-size: 40px;
+}
+
+@keyframes throwPaper {
+  0% {
+    transform: scale(1) rotate(0);
+  }
+  25% {
+    transform: scale(0.7) rotate(15deg);
+  }
+  50% {
+    transform: scale(0.4) rotate(-15deg);
+  }
+  75% {
+    transform: scale(0.1) rotate(15deg);
+  }
+  85% {
+    transform: scale(0.01) rotate(-15deg);
+  }
+  100% {
+    transform: scale(0.001) rotate(0) translate(-500px, 500px);
+  }
+}
+
+.throwAnimation {
+  animation: throwPaper 2s ease-in forwards;
+} 
