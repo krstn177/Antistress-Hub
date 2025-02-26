@@ -6,7 +6,6 @@ import bottomMessages from './bottomMessages.json'
 
 function AntistressDiary() {
   const [isAnimating, setIsAnimating] = useState(false)
-  const rowLimit = 51
   const rowsPerPage = 10
   const [rows, setRows] = useState(Array(10).fill(""))
   const [pageMessages, setPageMessages] = useState([0]) // Start with first message for first page
@@ -37,13 +36,23 @@ function AntistressDiary() {
     const newRows = [...rows]
     newRows[index] = value
     setRows(newRows)
-
-    // Check if we're at the end of the current textarea
-    if (textarea.selectionStart === value.length && value.length >= rowLimit) {
+    
+    // Check if text is about to exceed the textarea width
+    const tempSpan = document.createElement('span')
+    tempSpan.style.font = window.getComputedStyle(textarea).font
+    tempSpan.style.visibility = 'hidden'
+    tempSpan.style.position = 'absolute'
+    tempSpan.textContent = value
+    document.body.appendChild(tempSpan)
+    
+    const textWidth = tempSpan.getBoundingClientRect().width
+    const textareaWidth = textarea.clientWidth
+    document.body.removeChild(tempSpan)
+    
+    if (textWidth > textareaWidth * 0.93) { // Using 95% of width as threshold
       let nextInput = document.querySelectorAll(`.${styles.lineInput}`)[index + 1]
       if (!nextInput) {
         handleAddLine()
-        // Wait for state update before getting new input
         setTimeout(() => {
           nextInput = document.querySelectorAll(`.${styles.lineInput}`)[index + 1]
           nextInput?.focus()
