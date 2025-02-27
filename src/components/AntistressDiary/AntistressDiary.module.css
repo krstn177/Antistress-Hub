@@ -77,6 +77,8 @@
   background-size: 100% 50px; /* Match the line-height (font-size * 2.5) */
   background-position: 0 -6px; /* Slight adjustment to align with text */
   color: black;
+  overflow: hidden;
+  overflow-y: auto;
 }
 
 .textarea:focus {
@@ -180,4 +182,157 @@
 
 .backLink:hover {
   transform: translateX(-5px);
+}
+
+.messageHeader {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  position: relative;
+}
+
+.messageText {
+  flex: 1;
+}
+
+.changeTextButton {
+  background: transparent;
+  border: none;
+  color: inherit;
+  font-size: 24px;
+  cursor: pointer;
+  padding: 5px;
+  border-radius: 50%;
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+  position: relative;
+}
+
+.topPage .changeTextButton {
+  color: #008037;
+  background-color: rgba(255, 243, 224, 0.8);
+}
+
+.bottomPage .changeTextButton {
+  color: #fff3e0;
+  background-color: rgba(0, 128, 55, 0.8);
+}
+
+.changeTextButton::before {
+  content: "Click to change message";
+  position: absolute;
+  background-color: white;
+  color: #333;
+  padding: 12px 16px;
+  border-radius: 18px;
+  font-size: 18px;
+  font-family: 'Indie Flower', cursive;
+  white-space: nowrap;
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.3s ease;
+  z-index: 10;
+  box-shadow: 2px 2px 5px rgba(0,0,0,0.2);
+  border: 2px solid #333;
+}
+
+/* Change directions - top page tooltip goes right, bottom page goes left */
+.topPage .changeTextButton::before {
+  right: 100%;
+  top: 50%;
+  transform: translateY(-50%) translateX(-10px);
+}
+
+.bottomPage .changeTextButton::before {
+  left: 100%;
+  top: 50%;
+  transform: translateY(-50%) translateX(10px);
+}
+
+.changeTextButton:hover::before {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(-50%) translateX(-20px); /* Move left for top page */
+}
+
+.bottomPage .changeTextButton:hover::before {
+  transform: translateY(-50%) translateX(20px); /* Move right for bottom page */
+}
+
+/* Comic bubble arrow style */
+.changeTextButton::after {
+  content: "";
+  position: absolute;
+  width: 12px;
+  height: 12px;
+  background-color: white;
+  border: 2px solid #333;
+  border-radius: 50%;
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.3s ease;
+}
+
+/* Small circle */
+.changeTextButton::after {
+  content: "";
+  position: absolute;
+  width: 8px;
+  height: 8px;
+  background-color: white;
+  border: 2px solid #333;
+  border-radius: 50%;
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.3s ease;
+}
+
+/* Position the bubbles */
+.topPage .changeTextButton::after {
+  right: 90%;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.bottomPage .changeTextButton::after {
+  left: 90%;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+
+/* Show all elements on hover */
+.changeTextButton:hover::after {
+  opacity: 1;
+  visibility: visible;
 } 
+
+@media (max-width: 1055px) {
+  /* Reverse tooltip positions on mobile */
+  .topPage .changeTextButton::after {
+    left: 90%;
+    right: auto;
+  }
+
+  .bottomPage .changeTextButton::after {
+    right: 90%;
+    left: auto;
+  }
+
+  /* Reverse small circle positions on mobile */
+  .topPage .changeTextButton::before {
+    left: 200%;
+    right: auto;
+  }
+
+  .bottomPage .changeTextButton::before {
+    right: 200%;
+    left: auto;
+  }
+}
+
+

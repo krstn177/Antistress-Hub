@@ -1,5 +1,5 @@
 import './App.css'
-import { BrowserRouter, Routes, Route, Link } from 'react-router-dom'
+import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import Home from './components/Home/Home'
 import AntistressDiary from './components/AntistressDiary/AntistressDiary'
 import AntistressVoid from './components/AntistressVoid/AntistressVoid'
