@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import styles from './AntistressDiary.module.css'
 import topMessages from './topMessages.json'
@@ -9,6 +9,16 @@ function AntistressDiary() {
   const [isAnimating, setIsAnimating] = useState(false)
   const rowsPerPage = 10
   const [pages, setPages] = useState([{isTop: true, messageIndex: 0, content: ''}, {isTop: false, messageIndex: 0, content: ''}])
+  const [charsLimit, setCharsLimit] = useState(0)
+
+  useEffect(() => {
+    const textarea = document.getElementsByClassName(styles.textarea)[0];
+    if (textarea) {
+      const linesPerTextarea = Math.floor(textarea.clientHeight / parseInt(getComputedStyle(textarea).lineHeight));
+      const charsPerLine = Math.floor(textarea.clientWidth / (parseInt(getComputedStyle(textarea).fontSize) * 0.6));
+      setCharsLimit(linesPerTextarea * charsPerLine);
+    }
+  }, []); // Empty dependency array means this runs once on mount
 
   const handleThrowAway = () => {
     setIsAnimating(true)
@@ -18,7 +28,7 @@ function AntistressDiary() {
     }, 2000)
   }
 
-  const handleChangeText = (index) => {
+  const handleChangeMessage = (index) => {
     setPages(prevPages => {
       const newPages = [...prevPages]
       const currentPage = newPages[index]
@@ -61,25 +71,24 @@ function AntistressDiary() {
       const newPages = [...prevPages];
       const textarea = document.getElementsByClassName(styles.textarea)[index];
       
-      // If we've reached the scroll limit
+      // If we've reached or about to reach the scroll limit
       if (textarea && 
-          textarea.scrollHeight > textarea.clientHeight && 
-          textarea.scrollTop + textarea.clientHeight >= textarea.scrollHeight - 10) {
+          (textarea.scrollHeight > textarea.clientHeight || 
+           // Check if we're at the limit and about to overflow
+           (value.length >= charsLimit && value[charsLimit - 2] === ' '))) {
         
-        // Calculate how many characters fit in the current textarea
-        const linesPerTextarea = Math.floor(textarea.clientHeight / parseInt(getComputedStyle(textarea).lineHeight));
-        const charsPerLine = Math.floor(textarea.clientWidth / (parseInt(getComputedStyle(textarea).fontSize) * 0.6));
-        const approximateCharsLimit = linesPerTextarea * charsPerLine;
+        // Find the last line break or space before the limit
+        const lastBreakIndex = value.lastIndexOf('\n', charsLimit - 2); // Adjust limit to prevent space at end
+        const lastSpaceIndex = value.lastIndexOf(' ', charsLimit - 2);
+        const splitIndex = Math.max(lastBreakIndex, lastSpaceIndex);
         
-        // Split the content at the last space before the limit
-        const lastSpaceIndex = value.lastIndexOf(' ', approximateCharsLimit);
-        const firstPart = value.substring(0, lastSpaceIndex);
-        const remainingText = value.substring(lastSpaceIndex + 1);
+        const firstPart = value.substring(0, splitIndex > 0 ? splitIndex : charsLimit - 2);
+        const remainingText = value.substring(splitIndex > 0 ? splitIndex + 1 : charsLimit - 2);
         
         // Update current page with first part
         newPages[index] = { ...newPages[index], content: firstPart };
         
-        // If this is the last page, create a new one
+        // Create new page or update next page
         if (index === newPages.length - 1) {
           const isCurrentTop = newPages[index].isTop;
           const messages = !isCurrentTop ? topMessages.messages : bottomMessages.messages;
@@ -88,14 +97,36 @@ function AntistressDiary() {
           newPages.push({
             isTop: !isCurrentTop,
             messageIndex: randomIndex,
-            content: remainingText // Put remaining text in new page
+            content: remainingText
           });
+
+          // Use setTimeout to focus on the new textarea after it's rendered
+          setTimeout(() => {
+            const textareas = document.getElementsByClassName(styles.textarea);
+            const nextTextarea = textareas[index + 1];
+            if (nextTextarea) {
+              nextTextarea.focus();
+              // Place cursor at the end of the text
+              nextTextarea.setSelectionRange(remainingText.length, remainingText.length);
+            }
+          }, 0);
         } else {
-          // If next page exists, prepend the remaining text to it
+          // Update existing next page
           newPages[index + 1] = {
             ...newPages[index + 1],
-            content: remainingText + newPages[index + 1].content
+            content: remainingText + (newPages[index + 1].content || '')
           };
+
+          // Focus on the next textarea
+          setTimeout(() => {
+            const textareas = document.getElementsByClassName(styles.textarea);
+            const nextTextarea = textareas[index + 1];
+            if (nextTextarea) {
+              nextTextarea.focus();
+              // Place cursor at the end of the remaining text
+              nextTextarea.setSelectionRange(remainingText.length, remainingText.length);
+            }
+          }, 0);
         }
       } else {
         // Normal update if we haven't reached the end
@@ -118,7 +149,7 @@ function AntistressDiary() {
             <div className={styles.messageHeader}>
               <button 
                 className={styles.changeTextButton}
-                onClick={() => handleChangeText(index)}
+                onClick={() => handleChangeMessage(index)}
               >
                 <span>↻</span>
               </button>
@@ -147,7 +178,7 @@ function AntistressDiary() {
               </div>
               <button 
                 className={styles.changeTextButton}
-                onClick={() => handleChangeText(index)}
+                onClick={() => handleChangeMessage(index)}
               >
                 <span>↻</span>
               </button>
