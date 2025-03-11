@@ -18,14 +18,20 @@ function AntistressDiary() {
       const charsPerLine = Math.floor(textarea.clientWidth / (parseInt(getComputedStyle(textarea).fontSize) * 0.6));
       setCharsLimit(linesPerTextarea * charsPerLine);
     }
-  }, []); // Empty dependency array means this runs once on mount
+  }, []);
 
   const handleThrowAway = () => {
-    setIsAnimating(true)
+    setIsAnimating(true);
+    // Show the recycle bin
+    const recycleBin = document.getElementsByClassName(styles.recycleBin)[0];
+    recycleBin.classList.add(styles.visible);
+
     setTimeout(() => {
-      setIsAnimating(false)
-      setPages([{isTop: true, messageIndex: 0, content: ''}, {isTop: false, messageIndex: 0, content: ''}])
-    }, 2000)
+      setIsAnimating(false);
+      setPages([{isTop: true, messageIndex: 0, content: ''}, {isTop: false, messageIndex: 0, content: ''}]);
+      // Hide the recycle bin after animation
+      recycleBin.classList.remove(styles.visible);
+    }, 3000); // Duration should match the animation duration
   }
 
   const handleChangeMessage = (index) => {
@@ -208,7 +214,7 @@ function AntistressDiary() {
         🗑️
       </button>
       <div className={styles.recycleBin}>
-        🗑️
+        <img className={styles.recycleBinImg}  src="/recycle-bin.png" alt="recycle bin" />
       </div>
     </div>
   )
