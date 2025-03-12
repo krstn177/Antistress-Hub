@@ -34,25 +34,25 @@ function AntistressDiary() {
     }, 3000); // Duration should match the animation duration
   }
 
-  const handleChangeMessage = (index) => {
+  const handleChangeMessage = (index, direction) => {
     setPages(prevPages => {
-      const newPages = [...prevPages]
-      const currentPage = newPages[index]
-      
+      const newPages = [...prevPages];
+      const currentPage = newPages[index];
+
       if (currentPage.isTop) {
         newPages[index] = {
           ...currentPage,
-          messageIndex: (currentPage.messageIndex + 1) % topMessages.messages.length
-        }
+          messageIndex: (currentPage.messageIndex + direction + topMessages.messages.length) % topMessages.messages.length
+        };
       } else {
         newPages[index] = {
           ...currentPage,
-          messageIndex: (currentPage.messageIndex + 1) % bottomMessages.messages.length
-        }
+          messageIndex: (currentPage.messageIndex + direction + bottomMessages.messages.length) % bottomMessages.messages.length
+        };
       }
-      return newPages
-    })
-  }
+      return newPages;
+    });
+  };
 
   const handleNewPage = () => {
     if (pages[pages.length - 1].isTop) {
@@ -154,16 +154,22 @@ function AntistressDiary() {
           <div className={styles.topPage}>
             <div className={styles.messageHeader}>
               <button 
-                className={styles.changeTextButton}
-                onClick={() => handleChangeMessage(index)}
+                className={`${styles.changeTextButton} ${styles.previousBtn}`}
+                onClick={() => handleChangeMessage(index, -1)}
               >
-                <span>↻</span>
+                <span><i class="fa-regular fa-circle-left"></i></span>
               </button>
               <div className={styles.messageText}>
                 {message.lines.map((line, lineIndex) => (
                   <p key={lineIndex}>{line}</p>
                 ))}
               </div>
+              <button 
+                className={`${styles.changeTextButton} ${styles.nextBtn}`}
+                onClick={() => handleChangeMessage(index, 1)}
+              >
+                <span><i class="fa-regular fa-circle-right"></i></span>
+              </button>
             </div>
           </div>
         )}
@@ -177,6 +183,12 @@ function AntistressDiary() {
         {!page.isTop && (
           <div className={styles.bottomPage}>
             <div className={styles.messageHeader}>
+              <button 
+                className={styles.changeTextButton}
+                onClick={() => handleChangeMessage(index, -1)}
+              >
+                <span><i class="fa-regular fa-circle-left"></i></span>
+              </button>
               <div className={styles.messageText}>
                 {message.lines.map((line, lineIndex) => (
                   <p key={lineIndex}>{line}</p>
@@ -184,9 +196,9 @@ function AntistressDiary() {
               </div>
               <button 
                 className={styles.changeTextButton}
-                onClick={() => handleChangeMessage(index)}
+                onClick={() => handleChangeMessage(index, 1)}
               >
-                <span>↻</span>
+                <span><i class="fa-regular fa-circle-right"></i></span>
               </button>
             </div>
           </div>
