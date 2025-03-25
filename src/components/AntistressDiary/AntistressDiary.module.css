@@ -1,7 +1,3 @@
-/* Make everything responsive */
-/* Hide go back button on mobile */
-/* Adjust button positions on mobile if necessary */
-
 .container {
   background: linear-gradient(135deg, #2d5a27, #8ab17d 30%, #a8c9a1 50%, #8ab17d 70%, #2d5a27);
   background-attachment: fixed; 
@@ -10,15 +6,17 @@
   align-items: center;
   min-height: 100vh;
   position: relative;
-  padding: 2rem;
+  padding: 2rem 1rem; /* Reduced horizontal padding for mobile */
   gap: 2rem;
   transition: all 0.5s ease-out;
+  overflow-x: hidden; /* Prevent horizontal scrolling */
 }
 
 .page {
   background: white;
   padding: 40px;
-  width: 600px;
+  width: 90%; /* Changed from fixed 600px to percentage */
+  max-width: 600px; /* Maximum width on larger screens */
   box-shadow: 8px 8px 10px rgba(0,0,0,0.5);
   position: relative;
   transform-origin: center center;
@@ -79,7 +77,7 @@
   background-position: 0 -6px; /* Slight adjustment to align with text */
   color: black;
   overflow: hidden;
-  overflow-y: auto;
+  overflow-y: hidden;
 }
 
 .textarea:focus {
@@ -112,26 +110,54 @@
 
 .throwButton {
   position: fixed;
-  right: 50px;
+  right: 20px;
   top: 50%;
   transform: translateY(-50%);
-  width: 80px;
-  height: 80px;
+  width: 60px;
+  height: 60px;
   border: none;
-  /* background: #2db869; */
-  background-color: transparent;
+  background-color: rgba(0, 128, 55, 0.7);
   color: white;
-  /* border-radius: 50%; */
   cursor: pointer;
-  font-size: 50px;
+  font-size: 40px;
   transition: all 0.5s ease;
+  z-index: 10;
+  border-radius: 50%;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Add tooltip to throwaway button */
+.throwButton::after {
+  content: "Throw away pages";
+  position: absolute;
+  top: -40px;
+  left: 50%;
+  transform: translateX(-75%);
+  background-color: rgba(0, 0, 0, 0.7);
+  color: white;
+  font-size: 16px;
+  font-family: 'Indie Flower', cursive;
+  padding: 6px 12px;
+  border-radius: 8px;
+  white-space: nowrap;
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.2s ease;
+  pointer-events: none;
+  z-index: 15;
+}
+
+.throwButton:hover::after {
+  opacity: 1;
+  visibility: visible;
 }
 
 .throwButton:hover {
-  /* background: #00a347; */
-  /* box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3); */
-  transform: scale(1.3);
-  /* font-size: 55px; */
+  transform: scale(1.1) translateY(-50%);
+  background-color: rgba(0, 128, 55, 0.9);
 }
 
 .throwButton:disabled {
@@ -139,26 +165,36 @@
   cursor: not-allowed;
 }
 
+.throwButton:disabled::after {
+  display: none;
+}
+
 @keyframes throwPaper {
   0% {
-    transform: translate(-50%, -50%) scale(1) rotate(0deg) ;
+    transform: translate(-50%, -50%) scale(1) rotate(0deg);
     z-index: 100;
+    opacity: 1;
+  }
+  10% {
+    transform: translate(-50%, -60%) scale(0.7) rotate(-15deg);
+    opacity: 1;
   }
   25% {
-    transform: translate(-50%, -60%) scale(0.7) rotate(-15deg);
-  }
-  50% {
     transform: translate(-50%, -70%) scale(0.4) rotate(15deg);
     z-index: 25;
+    opacity: 0.9;
   }
-  75% {
+  40% {
     transform: translate(-50%, -25%) scale(0.1) rotate(-15deg);
+    opacity: 0.7;
   }
-  85% {
+  65% {
     transform: translate(-50%, -10%) scale(0.01) rotate(15deg);
+    opacity: 0;
   }
   100% {
     transform: translate(-50%, 0%) scale(0.001) rotate(-15deg);
+    opacity: 0;
   }
 }
 
@@ -166,32 +202,29 @@
   position: absolute; /* Make the position absolute */
   top: 45%; /* Center vertically */
   left: 50%; /* Center horizontally */
-  
-  animation: throwPaper 2.5s ease-in;
+  animation: throwPaper 3.5s ease-in;
   transform: translate(-50%, -50%);
-
-  opacity: 0; 
-  transition: opacity 2s ease; 
+  opacity: 1; /* Start with full opacity */
 }
 
 @keyframes recycleBinJerk {
   0% {
     transform: translate(-50%, -50%);
   }
-  89% {
+  50% {
     transform: translate(-50%, -50%) rotate(0deg);
   }
-  93% {
+  55% {
     transform: translate(-50%, -50%) rotate(10deg);
   }
-  96% {
+  60% {
     transform: translate(-50%, -50%) rotate(-10deg);
   }
-  99% {
-    transform: translate(-50%, -50%) rotate(10deg);
+  65% {
+    transform: translate(-50%, -50%) rotate(0deg);
   }
   100% {
-    transform: translate(-50%, -50%) rotate(-10deg);
+    transform: translate(-50%, -50%) rotate(0deg);
   }
 }
 
@@ -203,13 +236,13 @@
   width: 250px; /* Adjust size */
   height: 250px; /* Adjust size */
   opacity: 0; /* Initially hidden */
-  /* transition: opacity 1s ease; */
+  transition: opacity 1s ease;
 }
 
 .recycleBin.visible {
   opacity: 1; /* Show when animating */
   z-index: 50;
-  animation: recycleBinJerk 2.5s ease;
+  animation: recycleBinJerk 3.5s ease;
 }
 
 .recycleBinImg {
@@ -217,7 +250,6 @@
   height: 100%;
   object-fit: cover;
 }
-
 
 .backLink {
   position: fixed;
@@ -230,10 +262,13 @@
   padding: 10px;
   transition: all 0.3s ease;
   z-index: 10;
+  background-color: rgba(0, 128, 55, 0.5); /* Semi-transparent background */
+  border-radius: 8px;
 }
 
 .backLink:hover {
   transform: translateX(-5px);
+  background-color: rgba(0, 128, 55, 0.8); /* Darker on hover */
 }
 
 .messageHeader {
@@ -247,12 +282,16 @@
   flex: 1;
 }
 
+.mobileBtnContainer {
+  display: none;
+}
+
 .changeTextButton {
   background: transparent;
   border: none;
   color: black;
   font-size: 34px;
-  font-family: Arial, Helvetica, sans-serif ;
+  font-family: Arial, Helvetica, sans-serif;
   font-weight: 900;
   cursor: pointer;
   padding: 5px;
@@ -277,79 +316,358 @@
   background-color: rgba(0, 128, 55, 0.8);
 }
 
-.changeTextButton::before {
+/* New simple tooltip styles */
+.changeTextButton::after {
   content: "Click to change message";
   position: absolute;
-  background-color: white;
-  color: #333;
-  padding: 12px 16px;
-  border-radius: 18px;
-  font-size: 18px;
+  top: -40px;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: rgba(0, 87, 38, 0.7);
+  color: white;
+  font-size: 20px;
   font-family: 'Indie Flower', cursive;
+  padding: 4px 8px;
+  border-radius: 12px;
   white-space: nowrap;
   opacity: 0;
   visibility: hidden;
-  transition: all 0.3s ease;
-  z-index: 10;
-  box-shadow: 2px 2px 5px rgba(0,0,0,0.2);
-  border: 2px solid #333;
+  transition: all 0.2s ease;
+  pointer-events: none;
+  z-index: 15;
+}
+
+.changeTextButton:hover::after {
+  opacity: 1;
+  visibility: visible;
 }
 
 .changeTextButton:hover {
   transform: scale(1.1); /* Slightly enlarge on hover */
 }
 
-/* Change directions - top page tooltip goes right, bottom page goes left */
-.previousBtn::before {
-  right: 100%;
-  top: 50%;
-  transform: translateY(-50%) translateX(-10px);
+
+.releaseMessage {
+  position: fixed;
+  top: 40%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: #008037;
+  font-family: 'Indie Flower', cursive;
+  font-size: 52px;
+  font-weight: bold;
+  white-space: nowrap;
+  animation: messageAppear 1.9s ease-in-out;
+  z-index: 150;
+  text-align: center;
+  text-shadow: 2px 2px 4px rgba(255, 255, 255, 0.7);
 }
 
-.nextBtn::before {
-  left: 100%;
-  top: 50%;
-  transform: translateY(-50%) translateX(10px);
+@keyframes messageAppear {
+  0% {
+    opacity: 0;
+    transform: translate(-50%, -30%);
+  }
+  15% {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1.1);
+  }
+  25% {
+    transform: translate(-50%, -50%) scale(1);
+  }
+  75% {
+    opacity: 1;
+    transform: translate(-50%, -50%);
+  }
+  100% {
+    opacity: 0;
+    transform: translate(-50%, -70%);
+  }
+}
+@media (max-width: 800px){
+  #previousBtn::after{
+    transform: translateX(-35%);
+  }
+  
+  #nextBtn::after{
+    transform: translateX(-65%);
+  }
 }
 
-.changeTextButton:hover::before {
-  opacity: 1;
-  visibility: visible;
-  transform: translateY(-50%) translateX(-20px); /* Move left for top page */
-}
-
-.bottomPage .changeTextButton:hover::before {
-  transform: translateY(-50%) translateX(20px); /* Move right for bottom page */
-}
-
-/* Show all elements on hover */
-.changeTextButton:hover::after {
-  opacity: 1;
-  visibility: visible;
-} 
-
-@media (max-width: 1055px) {
-  /* Reverse tooltip positions on mobile */
-  .topPage .changeTextButton::after {
-    left: 90%;
-    right: auto;
+/* Responsive styles */
+@media (max-width: 768px) {
+  .page {
+    padding: 20px; /* Reduced padding */
+    width: 95%; /* Wider on mobile */
+  }
+  
+  .textarea {
+    min-height: 300px; /* Reduced height */
+    font-size: 18px; /* Smaller font */
+    line-height: 2.3; /* Adjusted line height */
+    background-size: 100% 41.4px; /* Adjusted for new line height (18px * 2.3) */
+  }
+  
+  .topPage, .bottomPage {
+    font-size: 20px; /* Smaller font */
+    padding: 10px; /* Reduced padding */
+  }
+  
+  .throwButton {
+    position: fixed;
+    right: 10px;
+    width: 50px;
+    height: 50px;
+    font-size: 30px;
+    top: 50%; /* Keep at the side for tablets */
+    transform: translateY(-50%);
   }
 
-  .bottomPage .changeTextButton::after {
-    right: 90%;
+  .throwButton::after {
+    transform: translateX(-80%);
+  }
+  
+  .addButton {
+    font-size: 22px; /* Smaller font */
+    padding: 6px 12px; /* Reduced padding */
+  }
+  
+  .recycleBin {
+    width: 180px; /* Smaller recycle bin */
+    height: 180px;
+  }
+  
+  .changeTextButton {
+    font-size: 28px; /* Smaller buttons */
+    width: 30px;
+    height: 30px;
+  }
+
+  .changeTextButton::after{
+    font-size: 14px;
+  }
+  
+  #previousBtn::after{
+    transform: translateX(-25%);
+  }
+
+  #nextBtn::after{
+    transform: translateX(-75%);
+  }
+
+  .backLink {
+    font-size: 24px;
+    padding: 8px 12px;
+    left: 10px;
+    top: 10px;
+  }
+
+  .throwButton:hover {
+    transform: scale(1.1) translateY(-50%); /* Maintain vertical centering on hover */
+  }
+
+  .releaseMessage {
+    font-size: 42px;
+  }
+}
+
+@media (max-width: 480px) {
+  .container {
+    padding: 1rem 0.5rem; /* Further reduced padding */
+  }
+  
+  .page {
+    padding: 15px; /* Further reduced padding */
+    width: 98%; /* Almost full width */
+  }
+  
+  .textarea {
+    min-height: 250px; /* Further reduced height */
+    font-size: 16px; /* Smaller font */
+    line-height: 2.2; /* Adjusted line height */
+    background-size: 100% 35.2px; /* Adjusted for new line height (16px * 2.2) */
+  }
+  
+  .topPage, .bottomPage {
+    font-size: 18px; /* Smaller font */
+    padding: 8px; /* Reduced padding */
+  }
+  
+  .backLink {
+    font-size: 20px;
+    padding: 6px 10px;
+    left: 5px;
+    top: 5px;
+  }
+  
+  .throwButton {
+    position: fixed;
+    width: 60px;
+    height: 60px;
+    font-size: 30px;
+    top: auto; /* Override the 50% top position */
+    bottom: 20px;
+    right: 20px;
+    transform: none; /* Remove the Y translation */
+    border-radius: 50%;
+    background-color: rgba(0, 128, 55, 0.8);
+  }
+  
+  .throwButton:hover {
+    transform: scale(1.1); /* Remove Y translation on hover for mobile */
+    background-color: rgba(0, 128, 55, 1);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.4);
+  }
+  
+  /* Position tooltip above the button on mobile */
+  .throwButton::after {
+    top: -40px;
+    right: 0;
     left: auto;
+    transform: none;
+  }
+  
+  .messageHeader {
+    flex-direction: column; /* Stack elements on very small screens */
+    align-items: center;
+  }
+  
+  .mobileBtnContainer {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+  }
+  
+  .changeTextButton {
+    display: none;
+    order: 1; /* Buttons at the top */
+    margin: 5px;
+    font-size: 24px;
   }
 
-  /* Reverse small circle positions on mobile */
-  .topPage .changeTextButton::before {
-    left: 200%;
-    right: auto;
+  .mobileBtnContainer .changeTextButton {
+    display: flex;
   }
+  
+  /* Make the recycle bin smaller on mobile */
+  .recycleBin {
+    width: 150px;
+    height: 150px;
+  }
+  
+  /* Adjust throw animation for mobile */
+  @keyframes throwPaper {
+    0% {
+      transform: translate(-50%, -50%) scale(1) rotate(0deg);
+      z-index: 100;
+      opacity: 1;
+    }
+    10% {
+      transform: translate(-50%, -60%) scale(0.7) rotate(-15deg);
+      opacity: 1;
+    }
+    25% {
+      transform: translate(-50%, -70%) scale(0.4) rotate(15deg);
+      z-index: 25;
+      opacity: 0.9;
+    }
+    40% {
+      transform: translate(-50%, -20%) scale(0.1) rotate(-15deg);
+      opacity: 0.7;
+    }
+    65% {
+      transform: translate(-50%, -10%) scale(0.01) rotate(15deg);
+      opacity: 0;
+    }
+    100% {
+      transform: translate(-50%, 10%) scale(0.001) rotate(-15deg);
+      opacity: 0;
+    }
+  }
+  
+  /* Make recycle bin animation more compact for mobile */
+  .recycleBin {
+    bottom: 10%;
+  }
+  
 
-  .bottomPage .changeTextButton::before {
-    right: 200%;
-    left: auto;
+  /* Hide tooltips on very small screens */
+  .changeTextButton::after,
+  .throwButton::after {
+    display: none;
   }
 }
 
+/* Fix for landscape orientation on mobile */
+@media (max-height: 500px) and (orientation: landscape) {
 
+  @keyframes throwPaper {
+    0% {
+      transform: translate(-50%, -45%) scale(0.5) rotate(0deg);
+      z-index: 100;
+      opacity: 1;
+    }
+    15% {
+      transform: translate(-50%, -65%) scale(0.3) rotate(-15deg);
+      opacity: 1;
+    }
+    30% {
+      transform: translate(-50%, -45%) scale(0.05) rotate(15deg);
+      z-index: 25;
+      opacity: 0.9;
+    }
+    45% {
+      transform: translate(-50%, -40%) scale(0.01) rotate(-15deg);
+      opacity: 0.7;
+    }
+    75% {
+      transform: translate(-50%, -35%) scale(0.001) rotate(15deg);
+      opacity: 0;
+    }
+    100% {
+      transform: translate(-50%, -30%) scale(0.00001) rotate(-15deg);
+      opacity: 0;
+    }
+  }
+
+  .container {
+    padding: 1rem 0.5rem;
+  }
+  
+  .page {
+    padding: 15px;
+    margin: 10px 0;
+  }
+  
+  .textarea {
+    min-height: 150px; /* Shorter for landscape */
+    background-size: 100% 35.2px; /* Keep same as mobile */
+  }
+  
+  .backLink {
+    position: absolute; /* Change from fixed to absolute for landscape */
+    top: 5px;
+    left: 5px;
+  }
+  
+  /* Keep the throw button at the bottom right in landscape mode */
+  .throwButton {
+    position: fixed;
+    top: auto;
+    bottom: 20px;
+    right: 20px;
+    transform: none;
+    width: 50px;
+    height: 50px;
+  }
+  
+  .throwButton:hover {
+    transform: scale(1.1); /* Consistent hover effect */
+  }
+  
+  .recycleBin {
+    width: 120px;
+    height: 120px;
+    bottom: 10px;
+  }
+}
