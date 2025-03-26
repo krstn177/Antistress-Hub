@@ -24,16 +24,6 @@
   max-width: 600px;
 }
 
-.heroImage {
-  flex: 1;
-  min-width: 300px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  padding: 1rem;
-  max-width: 600px;
-}
-
 .title {
   font-size: clamp(2.5rem, 5vw, 3.5rem);
   font-weight: 800;
@@ -52,6 +42,46 @@
   margin-bottom: 2rem;
 }
 
+/* Hero Image */
+.heroImage {
+  flex: 1;
+  min-width: 300px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 1rem;
+  max-width: 800px;
+  position: relative;
+}
+
+.heroImg {
+  width: 100%;
+  height: auto;
+  object-fit: contain;
+  border-radius: 20px;
+  padding: 4px;
+  background: linear-gradient(135deg, #008037 0%, #6a11cb 100%);
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+  transition: transform 0.3s ease, box-shadow 0.3s ease, background 0.3s ease;
+  position: relative;
+}
+
+.heroImg::before {
+  content: '';
+  position: absolute;
+  inset: 4px;
+  background: white;
+  border-radius: 16px;
+  z-index: -1;
+}
+
+.heroImg:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 25px 30px -5px rgba(0, 0, 0, 0.2), 0 15px 15px -5px rgba(0, 0, 0, 0.08);
+  background: linear-gradient(135deg, #6a11cb 0%, #008037 100%);
+}
+
+/* Button Styles */
 .heroButtons {
   display: flex;
   gap: 1rem;
@@ -111,6 +141,7 @@
   padding: 0 1rem;
 }
 
+/* Feature Cards */
 .cards {
   display: flex;
   gap: 2rem;
@@ -123,10 +154,9 @@
 
 .card {
   flex: 1;
-  min-width: 280px;
+  min-width: 450px;
   max-width: 500px;
   border-radius: 16px;
-  overflow: hidden;
   box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
   transition: transform 0.3s ease, box-shadow 0.3s ease;
   text-decoration: none;
@@ -141,7 +171,7 @@
 }
 
 .voidCard {
-  border-top: 5px solid #6a11cb;
+  border-top: 5px solid #facd1d;
 }
 
 .card:hover {
@@ -150,8 +180,20 @@
 }
 
 .cardImage {
-  height: 200px;
+  height: 300px;
   overflow: hidden;
+  border-radius: 16px;
+}
+
+.cardImage img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.3s ease;
+}
+
+.card:hover .cardImage img {
+  transform: scale(1.02);
 }
 
 .cardContent {
@@ -389,37 +431,14 @@
   color: white;
 }
 
-/* Placeholders for images */
-.imagePlaceholder {
-  width: 100%;
-  height: 100%;
-  background: linear-gradient(45deg, #e6e6e6 25%, #f0f0f0 25%, #f0f0f0 50%, #e6e6e6 50%, #e6e6e6 75%, #f0f0f0 75%);
-  background-size: 20px 20px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: #718096;
-  font-weight: 500;
-  font-size: clamp(0.8rem, 2vw, 1rem);
-  text-align: center;
-  padding: 1rem;
-}
-
-.diaryCard .imagePlaceholder {
-  border-bottom: 3px solid rgba(0, 128, 55, 0.2);
-}
-
-.voidCard .imagePlaceholder {
-  border-bottom: 3px solid rgba(106, 17, 203, 0.2);
-}
-
+/* Icons and Placeholders */
 .iconPlaceholder {
   color: white;
   font-weight: bold;
   font-size: clamp(1.2rem, 3vw, 1.5rem);
 }
 
-/* Responsive adjustments */
+/* Media Queries */
 @media (max-width: 1024px) {
   .hero {
     padding: 1rem;
@@ -445,8 +464,10 @@
     margin: 0 auto;
   }
 
-  .heroImage{
-    display: none;
+  .heroImage {
+    max-width: 400px;
+    margin: 2rem auto 0;
+    padding: 0 1rem;
   }
   
   .heroButtons {
@@ -478,6 +499,15 @@
   
   .title {
     margin-top: 2rem;
+  }
+  
+  .heroImage {
+    max-width: 300px;
+    margin: 1.5rem auto 0;
+  }
+  
+  .heroImg {
+    border-radius: 16px;
   }
    
   .heroButtons {
@@ -520,7 +550,7 @@
   }
 }
 
-/* For safe touch targets on mobile */
+/* Touch Target Adjustments */
 @media (max-width: 480px) {
   .footerLinks a {
     padding: 0.5rem;

@@ -15,10 +15,14 @@ function Home() {
           </div>
         </div>
         <div className={styles.heroImage}>
-          {/* Placeholder for hero image */}
-          <div className={styles.imagePlaceholder}>
-            <span>Relaxation Illustration</span>
-          </div>
+          <img 
+            src="/pictures/HERO-IMAGE.png" 
+            alt="Antistress Hero"
+            loading="eager"
+            width="1200"
+            height="800"
+            className={styles.heroImg}
+          />
         </div>
       </header>
 
@@ -30,10 +34,11 @@ function Home() {
         <div className={styles.cards}>
           <Link to="/diary" className={`${styles.card} ${styles.diaryCard}`}>
             <div className={styles.cardImage}>
-              {/* Placeholder for diary image */}
-              <div className={styles.imagePlaceholder}>
-                <span>Diary Image</span>
-              </div>
+              <img 
+                src="/pictures/ANTISTRESS-DIARY.png" 
+                alt="Antistress Diary"
+                loading="lazy"
+              />
             </div>
             <div className={styles.cardContent}>
               <h2>Antistress Diary</h2>
@@ -44,10 +49,11 @@ function Home() {
           
           <Link to="/void" className={`${styles.card} ${styles.voidCard}`}>
             <div className={styles.cardImage}>
-              {/* Placeholder for void image */}
-              <div className={styles.imagePlaceholder}>
-                <span>Void Image</span>
-              </div>
+              <img 
+                src="/pictures/ANTISTRESS-VOID.png" 
+                alt="Antistress Void"
+                loading="lazy"
+              />
             </div>
             <div className={styles.cardContent}>
               <h2>Antistress Void</h2>
@@ -138,7 +144,7 @@ function Home() {
           <a href="#">Privacy Policy</a>
           <a href="#">Terms of Use</a>
           <a href="#">Contact</a>
-          <a href="https://www.vecteezy.com/free-videos/space">Space Stock Videos by Vecteezy</a>
+          <a href="https://www.vecteezy.com/free-videos/space">Void Video by Vecteezy</a>
         </div>
       </footer>
     </div>

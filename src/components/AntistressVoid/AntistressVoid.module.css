@@ -1,3 +1,4 @@
+/* Main Container and Video Background */
 .container {
   position: relative;
   width: 100%;
@@ -24,6 +25,7 @@
   transform: translateZ(0);
 }
 
+/* Content Layout */
 .content {
   position: relative;
   z-index: 1;
@@ -37,59 +39,130 @@
   color: white;
 }
 
+/* Header Styles */
+.content h1 {
+  font-size: 4rem;
+  color: #face1d;
+  text-shadow: 
+    0 0 10px rgba(250, 206, 29, 0.3),
+    0 0 20px rgba(250, 206, 29, 0.2),
+    0 0 30px rgba(250, 206, 29, 0.1);
+  font-family: 'Space Mono', monospace;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  margin-bottom: 2rem;
+  position: relative;
+  animation: glowPulse 3s ease-in-out infinite;
+}
+
+/* Navigation */
+.backLink {
+  position: fixed;
+  left: 20px;
+  top: 20px;
+  text-decoration: none;
+  color: #face1d;
+  font-family: 'Space Mono', monospace;
+  font-size: 1.2rem;
+  padding: 10px 15px;
+  transition: all 0.3s ease;
+  z-index: 10;
+  background-color: rgba(0, 0, 0, 0.5);
+  border-radius: 8px;
+  border: 1px solid rgba(255, 232, 31, 0.3);
+}
+
+.backLink:hover {
+  transform: translateX(-5px);
+  background-color: rgba(0, 0, 0, 0.7);
+  border-color: rgba(255, 232, 31, 0.6);
+}
+
+/* Textarea Section */
 .textareaContainer {
   width: 80%;
-  max-width: 600px;
+  max-width: 735px;
   margin-top: 20px;
   display: flex;
   flex-direction: column;
   align-items: center;
+  position: relative;
 }
 
 .textarea {
   width: 100%;
   background-color: rgba(0, 0, 0, 0.5);
-  color: white;
-  border: 1px solid rgba(255, 255, 255, 0.3);
-  border-radius: 8px;
-  padding: 12px;
-  font-size: 16px;
+  color: rgba(250, 206, 29, 0.9);
+  border: 1px solid rgba(250, 206, 29, 0.3);
+  border-radius: 12px;
+  padding: 20px;
+  font-size: 18px;
+  line-height: 1.6;
   resize: none;
+  font-family: 'Space Mono', monospace;
+  transition: all 0.3s ease;
+  box-shadow: 
+    0 0 10px rgba(0, 0, 0, 0.5),
+    inset 0 0 15px rgba(0, 0, 0, 0.5);
+}
+
+.textarea:focus {
+  outline: none;
+  border-color: rgba(250, 206, 29, 0.6);
+  background-color: rgba(0, 0, 0, 0.7);
+  box-shadow: 
+    0 0 15px rgba(250, 206, 29, 0.1),
+    inset 0 0 15px rgba(0, 0, 0, 0.5);
 }
 
 .textarea::placeholder {
-  color: rgba(255, 255, 255, 0.7);
+  color: rgba(250, 206, 29, 0.5);
+  font-style: italic;
 }
 
 .characterCount {
   text-align: right;
-  font-size: 12px;
-  margin-top: 4px;
-  color: rgba(255, 255, 255, 0.7);
+  font-size: 14px;
+  margin-top: 8px;
+  color: rgba(250, 206, 29, 0.7);
   align-self: flex-end;
+  font-family: 'Space Mono', monospace;
+  text-shadow: 0 0 8px rgba(0, 0, 0, 0.5);
 }
 
+/* Button Styles */
 .rollButton {
   margin-top: 15px;
-  padding: 10px 20px;
-  background-color: rgba(255, 232, 31, 0.8);
-  color: black;
+  padding: 8px 16px;
+  background: linear-gradient(to right, rgba(0, 0, 0, 0.7), rgba(250, 206, 29, 0.3));
   border: none;
-  border-radius: 4px;
-  font-weight: bold;
+  border-radius: 5px;
   cursor: pointer;
-  transition: background-color 0.3s;
+  font-size: 28px;
+  font-family: 'Space Mono', monospace;
+  font-weight: bold;
+  color: #face1d;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+  transition: all 0.5s ease;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
 }
 
 .rollButton:hover {
-  background-color: rgba(255, 232, 31, 1);
+  background: linear-gradient(to right, rgba(0, 0, 0, 0.8), rgba(250, 206, 29, 0.4));
+  transform: scale(1.05);
+  box-shadow: 0 4px 8px rgba(250, 206, 29, 0.2);
 }
 
 .rollButton:disabled {
-  background-color: rgba(255, 255, 255, 0.3);
+  background: linear-gradient(to right, rgba(0, 0, 0, 0.3), rgba(255, 255, 255, 0.1));
+  color: rgba(255, 255, 255, 0.3);
   cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
+  text-shadow: none;
 }
 
+/* Star Wars Text Animation */
 .StarWarsContainer {
   width: 100vw;
   height: 100vh;
@@ -113,6 +186,48 @@
   text-align: justify;
 }
 
+/* Custom Scrollbar */
+.textarea::-webkit-scrollbar {
+  width: 8px;
+}
+
+.textarea::-webkit-scrollbar-track {
+  background: rgba(0, 0, 0, 0.3);
+  border-radius: 4px;
+}
+
+.textarea::-webkit-scrollbar-thumb {
+  background: rgba(250, 206, 29, 0.3);
+  border-radius: 4px;
+  transition: all 0.3s ease;
+}
+
+.textarea::-webkit-scrollbar-thumb:hover {
+  background: rgba(250, 206, 29, 0.5);
+}
+
+/* Animations */
+@keyframes glowPulse {
+  0% {
+    text-shadow: 
+      0 0 10px rgba(250, 206, 29, 0.3),
+      0 0 20px rgba(250, 206, 29, 0.2),
+      0 0 30px rgba(250, 206, 29, 0.1);
+  }
+  50% {
+    text-shadow: 
+      0 0 15px rgba(250, 206, 29, 0.4),
+      0 0 25px rgba(250, 206, 29, 0.3),
+      0 0 35px rgba(250, 206, 29, 0.2);
+  }
+  100% {
+    text-shadow: 
+      0 0 10px rgba(250, 206, 29, 0.3),
+      0 0 20px rgba(250, 206, 29, 0.2),
+      0 0 30px rgba(250, 206, 29, 0.1);
+  }
+}
+
 @keyframes translateText {
   0% {
     opacity: 1;
@@ -120,6 +235,63 @@
   }
   100% {
     opacity: 0;
-    transform: rotateX(64deg) scale(0.35, 0.3) translateY(calc(-30vh - (var(--text-length, 0) * 0.5vh))) translateZ(calc(-50vh - (var(--text-length, 0) * 0.1vh)));
+    transform: rotateX(64deg) scale(0.35, 0.3) translateY(calc(-65vh - (var(--text-length, 0) * 0.5vh))) translateZ(calc(-50vh - (var(--text-length, 0) * 0.1vh)));
+  }
+}
+
+/* Media Queries */
+@media (max-width: 768px) {
+  .content h1 {
+    font-size: 3rem;
+    letter-spacing: 0.1em;
+  }
+
+  .textarea {
+    font-size: 16px;
+    padding: 15px;
+  }
+  
+  .characterCount {
+    font-size: 12px;
+    margin-top: 6px;
+  }
+
+  .rollButton {
+    font-size: 22px;
+    padding: 6px 12px;
+  }
+
+  .backLink {
+    font-size: 1rem;
+    padding: 8px 12px;
+  }
+}
+
+@media (max-width: 480px) {
+  .content h1 {
+    font-size: 2.2rem;
+    letter-spacing: 0.08em;
+    margin-bottom: 1.5rem;
+  }
+
+  .textareaContainer {
+    width: 90%;
+  }
+  
+  .textarea {
+    font-size: 15px;
+    padding: 12px;
+  }
+
+  .rollButton {
+    font-size: 20px;
+    padding: 6px 10px;
+  }
+
+  .backLink {
+    font-size: 0.9rem;
+    padding: 6px 10px;
+    left: 10px;
+    top: 10px;
   }
 }

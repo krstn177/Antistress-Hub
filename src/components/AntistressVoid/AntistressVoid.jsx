@@ -1,4 +1,5 @@
 import { useRef, useState } from 'react'
+import { Link } from 'react-router-dom'
 import styles from './AntistressVoid.module.css'
 
 function AntistressVoid() {
@@ -28,6 +29,9 @@ function AntistressVoid() {
 
   return (
     <div className={styles.container}>
+      <Link to="/" className={styles.backLink}>
+        ← Go back
+      </Link>
       <div className={styles.videoContainer}>
         <video 
           ref={videoRef}
