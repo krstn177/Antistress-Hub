@@ -10,7 +10,12 @@
 .hero {
   display: flex;
   min-height: 90vh;
-  background: linear-gradient(135deg, #a5d6a7 0%, #7cb342 100%);
+  background: linear-gradient(135deg, 
+    #e8f5e9 0%,      /* Light mint */
+    #81c784 30%,     /* Medium green */
+    #9575cd 70%,     /* Soft purple */
+    #673ab7 100%     /* Deep purple */
+  );
   padding: 2rem;
   align-items: center;
   justify-content: space-around;
@@ -25,21 +30,25 @@
 }
 
 .title {
-  font-size: clamp(2.5rem, 5vw, 3.5rem);
+  font-size: clamp(3.5rem, 7vw, 5rem);
   font-weight: 800;
   color: #2d3748;
-  margin-bottom: 1rem;
-  line-height: 1.2;
+  margin-bottom: 1.5rem;
+  line-height: 1.1;
   background: linear-gradient(90deg, #008037, #6a11cb);
   background-clip: text;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
+  letter-spacing: -0.02em;
+  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
 }
 
 .subtitle {
-  font-size: clamp(1.1rem, 3vw, 1.5rem);
-  color: #4a5568;
-  margin-bottom: 2rem;
+  font-size: clamp(1.2rem, 3.5vw, 1.8rem);
+  color: #1a1a1a;
+  margin-bottom: 2.5rem;
+  max-width: 90%;
+  font-weight: 500;
 }
 
 /* Hero Image */
@@ -120,20 +129,21 @@
 /* Features Section */
 .featuresSection {
   padding: 5rem 1rem;
-  background-color: #f9fafb;
+  background-color: #1e1e1e;
   text-align: center;
 }
 
 .sectionTitle {
   font-size: clamp(2rem, 4vw, 2.5rem);
   margin-bottom: 1rem;
-  color: #2d3748;
+  color: #ffffff;
   padding: 0 1rem;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
 }
 
 .sectionSubtitle {
   font-size: clamp(1rem, 2vw, 1.2rem);
-  color: #718096;
+  color: #e0e0e0;
   margin-bottom: 3rem;
   max-width: 700px;
   margin-left: auto;
@@ -157,26 +167,20 @@
   min-width: 450px;
   max-width: 500px;
   border-radius: 16px;
-  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.3), 0 10px 10px -5px rgba(0, 0, 0, 0.2);
+  transition: transform 0.3s ease, box-shadow 0.3s ease, background 0.3s ease;
   text-decoration: none;
   display: flex;
   flex-direction: column;
-  background: white;
+  background: #1f2937; /* Dark background for cards */
   margin-bottom: 1rem;
-}
-
-.diaryCard {
-  border-top: 5px solid #008037;
-}
-
-.voidCard {
-  border-top: 5px solid #facd1d;
+  border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 .card:hover {
   transform: translateY(-10px);
-  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+  background: #2d3748; /* Slightly lighter on hover */
 }
 
 .cardImage {
@@ -198,7 +202,7 @@
 
 .cardContent {
   padding: 2rem;
-  color: #2d3748;
+  color: #ffffff;
   text-align: left;
   flex-grow: 1;
   display: flex;
@@ -208,12 +212,12 @@
 .cardContent h2 {
   font-size: clamp(1.4rem, 3vw, 1.8rem);
   margin-bottom: 1rem;
-  color: #1a202c;
+  color: #ffffff;
 }
 
 .cardContent p {
   font-size: clamp(0.95rem, 2vw, 1.1rem);
-  color: #4a5568;
+  color: #e0e0e0;
   margin-bottom: 1.5rem;
   flex-grow: 1;
 }
@@ -225,18 +229,69 @@
   align-self: flex-start;
 }
 
+.diaryCard {
+  font-family: 'Indie Flower', cursive;
+}
+
+.voidCard {
+  font-family: 'Space Mono', monospace;
+}
+
 .diaryCard .cardCta {
-  color: #008037;
+  color: #4ade80; /* Light green */
 }
 
 .voidCard .cardCta {
-  color: #6a11cb;
+  color: #facd1d; /* Gold */
+}
+
+.diaryCard .cardContent h2 {
+  font-size: clamp(1.6rem, 3vw, 2rem);
+  color: #4ade80; /* Light green */
+}
+
+.diaryCard .cardContent p {
+  font-size: clamp(1.1rem, 2vw, 1.3rem);
+}
+
+.diaryCard .cardCta {
+  font-size: clamp(1.1rem, 2vw, 1.3rem);
+}
+
+.voidCard .cardContent h2 {
+  letter-spacing: 1px;
+  color: #facd1d; /* Gold */
+}
+
+.voidCard .cardContent p {
+  font-size: clamp(0.9rem, 2vw, 1rem);
+  letter-spacing: 0.5px;
+  line-height: 1.7;
+}
+
+.voidCard .cardCta {
+  letter-spacing: 1px;
+}
+
+/* Update card hover effect for better visibility */
+.card:hover .cardContent h2,
+.card:hover .cardContent p {
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+/* Add a subtle glow to CTAs on hover */
+.cardCta:hover {
+  text-shadow: 0 0 8px currentColor;
 }
 
 /* How It Works Section */
 .howItWorksSection {
   padding: 5rem 1rem;
-  background: linear-gradient(135deg, #d1c4e9 0%, #b39ddb 100%);
+  background: linear-gradient(135deg,
+    #8ab17d 0%,      /* Light forest green */
+    #5c8c4f 50%,     /* Medium green */
+    #2d5a27 100%     /* Darker green */
+  );
   text-align: center;
   color: #2d3748;
 }
@@ -289,7 +344,7 @@
 /* Testimonials Section */
 .testimonialsSection {
   padding: 5rem 1rem;
-  background-color: #f0f9f1;
+  background-color: #1e1e1e;
   text-align: center;
 }
 
@@ -313,7 +368,7 @@
 }
 
 .testimonialContent {
-  background-color: #f7fafc;
+  background-color: #1f2937;
   padding: 2rem;
   border-radius: 16px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
@@ -323,7 +378,7 @@
 
 .testimonialContent p {
   font-style: italic;
-  color: #4a5568;
+  color: white;
   font-size: clamp(0.95rem, 2vw, 1.1rem);
 }
 
@@ -331,6 +386,7 @@
   display: flex;
   align-items: center;
   gap: 1rem;
+  color: white;
   margin-top: 1.5rem;
 }
 
@@ -338,8 +394,13 @@
   width: 50px;
   height: 50px;
   border-radius: 50%;
-  background: linear-gradient(90deg, #008037 0%, #6a11cb 100%);
-  flex-shrink: 0;
+  overflow: hidden;
+}
+
+.avatarPlaceholder img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }
 
 /* Call to Action Section */
@@ -386,13 +447,17 @@
 }
 
 .diaryButton {
-  background: #277b4b;
-  color: white;
+  background: linear-gradient(90deg, #2d5a27 0%, #a8c9a1 100%);
+  font-size: clamp(1.3rem, 2vw, 1.35rem);
+  font-family: 'Indie Flower', cursive;
+  color: black;
+  border: 2px solid black;
   box-shadow: 0 4px 15px rgba(0, 128, 55, 0.3);
 }
 
 .voidButton {
-  background: rgba(255, 255, 255, 0.15);
+  background: linear-gradient(90deg, #000000 0%, #2d1b4e 100%);
+  font-family: 'Space Mono', monospace;
   backdrop-filter: blur(10px);
   border: 2px solid white;
   color: white;
@@ -406,7 +471,7 @@
 /* Footer */
 .footer {
   padding: 3rem 1rem;
-  background-color: #1a202c;
+  background-color: #1e1e1e;
   color: #a0aec0;
   text-align: center;
 }
@@ -474,6 +539,10 @@
     justify-content: center;
   }
   
+  .cardImage{
+    height: 200px;
+  }
+
   .cardCta {
     align-self: center;
   }

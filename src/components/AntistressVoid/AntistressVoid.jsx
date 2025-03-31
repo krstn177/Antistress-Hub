@@ -6,6 +6,7 @@ function AntistressVoid() {
   const videoRef = useRef(null);
   const [text, setText] = useState('');
   const [isRolling, setIsRolling] = useState(false);
+  const [isVideoLoaded, setIsVideoLoaded] = useState(false);
 
   const handleTextChange = (e) => {
     setText(e.target.value);
@@ -27,12 +28,17 @@ function AntistressVoid() {
     }
   };
 
+  const handleVideoLoad = () => {
+    setIsVideoLoaded(true);
+  };
+
   return (
     <div className={styles.container}>
       <Link to="/" className={styles.backLink}>
         ← Go back
       </Link>
       <div className={styles.videoContainer}>
+        {!isVideoLoaded && <div className={styles.loadingState}>Loading...</div>}
         <video 
           ref={videoRef}
           className={styles.backgroundVideo}
@@ -41,6 +47,7 @@ function AntistressVoid() {
           muted 
           playsInline
           crossOrigin="anonymous"
+          onLoadedData={handleVideoLoad}
         >
           <source src="/videos/blackHoleHD.mp4" type="video/mp4" />
           Your browser does not support the video tag.

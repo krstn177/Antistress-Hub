@@ -7,16 +7,20 @@ function Home() {
       {/* Header/Hero Section */}
       <header className={styles.hero}>
         <div className={styles.heroContent}>
-          <h1 className={styles.title}>Welcome to Antistress</h1>
-          <p className={styles.subtitle}>Your digital sanctuary for mental wellness</p>
+          <h1 className={styles.title}>Welcome to the Antistress Space</h1>
+          <p className={styles.subtitle}>Your absolutely free digital sanctuary for mental wellness</p>
           <div className={styles.heroButtons}>
-            <a href="#features" className={styles.primaryButton}>Explore Features</a>
-            <a href="#about" className={styles.secondaryButton}>Learn More</a>
-          </div>
+            <Link to="/diary" className={`${styles.ctaButton} ${styles.diaryButton}`}>
+              Go to Diary
+            </Link>
+            <Link to="/void" className={`${styles.ctaButton} ${styles.voidButton}`}>
+              Experience the Void
+            </Link>
+        </div>
         </div>
         <div className={styles.heroImage}>
           <img 
-            src="/pictures/HERO-IMAGE.png" 
+            src="/pictures/HERO-IMAGE(3).webp" 
             alt="Antistress Hero"
             loading="eager"
             width="1200"
@@ -35,7 +39,7 @@ function Home() {
           <Link to="/diary" className={`${styles.card} ${styles.diaryCard}`}>
             <div className={styles.cardImage}>
               <img 
-                src="/pictures/ANTISTRESS-DIARY.png" 
+                src="/pictures/ANTISTRESS-DIARY.webp" 
                 alt="Antistress Diary"
                 loading="lazy"
               />
@@ -105,7 +109,13 @@ function Home() {
             <div className={styles.testimonialContent}>
               <p>"The Antistress Diary has become my daily ritual. It helps me process my thoughts and stay balanced."</p>
               <div className={styles.testimonialAuthor}>
-                <div className={styles.avatarPlaceholder}></div>
+                <div className={styles.avatarPlaceholder}>
+                  <img 
+                    src="/pictures/review-2.webp" 
+                    alt="Sarah K.'s profile"
+                    loading="lazy"
+                  />
+                </div>
                 <span>Sarah K.</span>
               </div>
             </div>
@@ -115,7 +125,13 @@ function Home() {
             <div className={styles.testimonialContent}>
               <p>"I love the Void feature! There's something so therapeutic about watching my worries disappear into nothingness."</p>
               <div className={styles.testimonialAuthor}>
-                <div className={styles.avatarPlaceholder}></div>
+                <div className={styles.avatarPlaceholder}>
+                  <img 
+                    src="/pictures/review-1.webp" 
+                    alt="Michael T.'s profile"
+                    loading="lazy"
+                  />
+                </div>
                 <span>Michael T.</span>
               </div>
             </div>
