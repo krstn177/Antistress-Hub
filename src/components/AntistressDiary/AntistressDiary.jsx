@@ -290,7 +290,7 @@ function AntistressDiary() {
         {/* 🗑️ */}
       </button>
 
-      {showMessage && <div className={styles.releaseMessage}>Weight lifted! 🍃</div>}
+      {showMessage && <div className={styles.releaseMessage}>Brilliantly done! 👏</div>}
 
       <div className={styles.recycleBin}>
         <img className={styles.recycleBinImg} src="/recycle-bin.png" alt="recycle bin" />
