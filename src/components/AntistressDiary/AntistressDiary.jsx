@@ -88,8 +88,24 @@ function AntistressDiary() {
       
       if (lastSpaceIndex !== -1) {
         // Split the content at the last space
-        const contentBeforeSpace = value.substring(0, lastSpaceIndex);
-        const contentAfterSpace = value.substring(lastSpaceIndex + 1);
+        let contentBeforeSpace = value.substring(0, lastSpaceIndex);
+        let contentAfterSpace = value.substring(lastSpaceIndex + 1);
+
+        if (contentAfterSpace.length > 20){
+          // If contentAfterSpace is longer than 20 characters
+          // Move all but the last 20 characters to contentBeforeSpace
+          const excessLength = contentAfterSpace.length - 20;
+          const charsToMove = contentAfterSpace.substring(0, excessLength);
+          const remainingChars = contentAfterSpace.substring(excessLength);
+          
+          // Update the content variables
+          const updatedBeforeSpace = contentBeforeSpace + ' ' + charsToMove;
+          const updatedAfterSpace = remainingChars;
+          
+          // Reassign the variables
+          contentBeforeSpace = updatedBeforeSpace;
+          contentAfterSpace = updatedAfterSpace;
+        }
         
         // Update current page with content before the last space
         setPages(prevPages => {

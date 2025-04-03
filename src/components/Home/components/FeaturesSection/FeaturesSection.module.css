@@ -1,0 +1,183 @@
+/* Features Section */
+.featuresSection {
+  padding: 5rem 1rem;
+  background-color: #1e1e1e;
+  text-align: center;
+}
+
+.sectionTitle {
+  font-size: clamp(2rem, 4vw, 2.5rem);
+  margin-bottom: 1rem;
+  color: #ffffff;
+  padding: 0 1rem;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.sectionSubtitle {
+  font-size: clamp(1rem, 2vw, 1.2rem);
+  color: #e0e0e0;
+  margin-bottom: 3rem;
+  max-width: 700px;
+  margin-left: auto;
+  margin-right: auto;
+  padding: 0 1rem;
+}
+
+/* Feature Cards */
+.cards {
+  display: flex;
+  gap: 2rem;
+  justify-content: center;
+  flex-wrap: wrap;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 1rem;
+}
+
+.card {
+  flex: 1;
+  min-width: 450px;
+  max-width: 500px;
+  border-radius: 16px;
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.3), 0 10px 10px -5px rgba(0, 0, 0, 0.2);
+  transition: transform 0.3s ease, box-shadow 0.3s ease, background 0.3s ease;
+  text-decoration: none;
+  display: flex;
+  flex-direction: column;
+  background: #1f2937;
+  margin-bottom: 1rem;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+  background: #2d3748;
+}
+
+.cardImage {
+  height: 300px;
+  overflow: hidden;
+  border-radius: 16px;
+}
+
+.cardImage img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.3s ease;
+}
+
+.card:hover .cardImage img {
+  transform: scale(1.02);
+}
+
+.cardContent {
+  padding: 2rem;
+  color: #ffffff;
+  text-align: left;
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.cardContent h2 {
+  font-size: clamp(1.4rem, 3vw, 1.8rem);
+  margin-bottom: 1rem;
+  color: #ffffff;
+}
+
+.cardContent p {
+  font-size: clamp(0.95rem, 2vw, 1.1rem);
+  color: #e0e0e0;
+  margin-bottom: 1.5rem;
+  flex-grow: 1;
+}
+
+.cardCta {
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  align-self: flex-start;
+}
+
+.diaryCard {
+  font-family: 'Indie Flower', cursive;
+}
+
+.voidCard {
+  font-family: 'Space Mono', monospace;
+}
+
+.diaryCard .cardCta {
+  color: #4ade80;
+}
+
+.voidCard .cardCta {
+  color: #facd1d;
+}
+
+.diaryCard .cardContent h2 {
+  font-size: clamp(1.6rem, 3vw, 2rem);
+  color: #4ade80;
+}
+
+.diaryCard .cardContent p {
+  font-size: clamp(1.1rem, 2vw, 1.3rem);
+}
+
+.diaryCard .cardCta {
+  font-size: clamp(1.1rem, 2vw, 1.3rem);
+}
+
+.voidCard .cardContent h2 {
+  letter-spacing: 1px;
+  color: #facd1d;
+}
+
+.voidCard .cardContent p {
+  font-size: clamp(0.9rem, 2vw, 1rem);
+  letter-spacing: 0.5px;
+  line-height: 1.7;
+}
+
+.voidCard .cardCta {
+  letter-spacing: 1px;
+}
+
+/* Update card hover effect for better visibility */
+.card:hover .cardContent h2,
+.card:hover .cardContent p {
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+/* Add a subtle glow to CTAs on hover */
+.cardCta:hover {
+  text-shadow: 0 0 8px currentColor;
+}
+
+/* Media Queries */
+@media (max-width: 768px) {
+  .cardImage {
+    height: 200px;
+  }
+
+  .cardCta {
+    align-self: center;
+  }
+  
+  .cardContent {
+    text-align: center;
+  }
+}
+
+@media (max-width: 480px) {
+  .cards {
+    gap: 1rem;
+  }
+  
+  .card {
+    min-width: 100%;
+    margin-bottom: 1.5rem;
+  }
+} 

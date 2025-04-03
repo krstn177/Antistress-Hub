@@ -5,6 +5,7 @@ import styles from './AntistressVoid.module.css'
 function AntistressVoid() {
   const videoRef = useRef(null);
   const [text, setText] = useState('');
+  const [isTextShort, setIsTextShort] = useState(false);
   const [isRolling, setIsRolling] = useState(false);
   const [isVideoLoaded, setIsVideoLoaded] = useState(false);
 
@@ -13,6 +14,7 @@ function AntistressVoid() {
   };
 
   const handleRollText = () => {
+    text.length < 40 && setIsTextShort(true);
     if (text.trim()) {
       setIsRolling(true);
       
@@ -55,14 +57,14 @@ function AntistressVoid() {
       </div>
       
       <div className={styles.content}>
-        <h1>Antistress Void</h1>
+        {!isRolling && <h1>Antistress Void</h1>}
         {isRolling ? (
           <div className={styles.StarWarsContainer}>
             <div 
               className={styles.textContainer} 
               style={{ '--text-length': text.length }}
             >
-              <div className={styles.text}>
+              <div className={`${styles.text} ${isTextShort ? styles.shortText : ''}`}>
                 {text} 
               </div>
             </div>

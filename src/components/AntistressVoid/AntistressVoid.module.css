@@ -186,6 +186,10 @@
   text-align: justify;
 }
 
+.shortText {
+  text-align: center;
+}
+
 /* Custom Scrollbar */
 .textarea::-webkit-scrollbar {
   width: 8px;
