@@ -25,19 +25,20 @@ function AntistressDiary() {
     // Show message when papers are partway through the animation
     setTimeout(() => {
       setShowMessage(true);
-    }, 1000);
+    }, 2800);
 
     // Hide message before the animation ends
     setTimeout(() => {
       setShowMessage(false);
-    }, 2800);
+    }, 4800);
 
     // Reset pages after animation completes
     setTimeout(() => {
       setIsAnimating(false);
       recycleBin.classList.remove(styles.visible);
+      // setShowMessage(false);
       setPages([{isTop: true, messageIndex: 0, content: ''}, {isTop: false, messageIndex: 0, content: ''}]);
-    }, 3300); 
+    }, 5000); 
   }
 
   const handleChangeMessage = (index, direction) => {
@@ -91,15 +92,15 @@ function AntistressDiary() {
         let contentBeforeSpace = value.substring(0, lastSpaceIndex);
         let contentAfterSpace = value.substring(lastSpaceIndex + 1);
 
-        if (contentAfterSpace.length > 20){
+        if (contentAfterSpace.length > 20) {
           // If contentAfterSpace is longer than 20 characters
-          // Move all but the last 20 characters to contentBeforeSpace
-          const excessLength = contentAfterSpace.length - 20;
-          const charsToMove = contentAfterSpace.substring(0, excessLength);
-          const remainingChars = contentAfterSpace.substring(excessLength);
+          // Keep all but the last 5 characters on the current page
+          const keepOnCurrentPage = contentAfterSpace.length - 5;
+          const charsToMove = contentAfterSpace.substring(0, keepOnCurrentPage);
+          const remainingChars = contentAfterSpace.substring(keepOnCurrentPage);
           
           // Update the content variables
-          const updatedBeforeSpace = contentBeforeSpace + ' ' + charsToMove;
+          const updatedBeforeSpace = contentBeforeSpace + ' ' + charsToMove + '-';
           const updatedAfterSpace = remainingChars;
           
           // Reassign the variables
@@ -107,51 +108,16 @@ function AntistressDiary() {
           contentAfterSpace = updatedAfterSpace;
         }
         
-        // Update current page with content before the last space
-        setPages(prevPages => {
-          const newPages = [...prevPages];
-          newPages[index] = { ...newPages[index], content: contentBeforeSpace };
-          
-          // Check if we need to create a new page
-          if (index === newPages.length - 1) {
-            // Create a new page with the overflow content
-            const isTop = !newPages[index].isTop;
-            const messagesArray = isTop ? topMessages.messages : bottomMessages.messages;
-            const randomIndex = Math.floor(Math.random() * messagesArray.length);
-            
-            newPages.push({
-              isTop,
-              messageIndex: randomIndex,
-              content: contentAfterSpace
-            });
-          } else {
-            // Add overflow content to the beginning of the next page
-            const nextPageContent = newPages[index + 1].content;
-            newPages[index + 1] = {
-              ...newPages[index + 1],
-              content: contentAfterSpace + (nextPageContent ? ' ' + nextPageContent : '')
-            };
-          }
-          
-          // Focus the next page's textarea after state update
-          setTimeout(() => {
-            if (textareaRefs.current[index + 1]) {
-              const nextTextarea = textareaRefs.current[index + 1];
-              nextTextarea.focus();
-              nextTextarea.selectionStart = contentAfterSpace.length;
-              nextTextarea.selectionEnd = contentAfterSpace.length;
-            }
-          }, 0);
-          
-          return newPages;
-        });
+        // Update page content and create overflow page
+        handlePageOverflow(index, contentBeforeSpace, contentAfterSpace);
       } else {
-        // No space found, just update the current page
-        setPages(prevPages => {
-          const newPages = [...prevPages];
-          newPages[index] = { ...newPages[index], content: value };
-          return newPages;
-        });
+        // No space found - handle text with no spaces
+        // Keep all except the last 5 characters on the current page
+        const contentBeforeSplit = value.substring(0, value.length - 5) + '-';
+        const contentAfterSplit = value.substring(value.length - 5);
+        
+        // Update page content and create overflow page
+        handlePageOverflow(index, contentBeforeSplit, contentAfterSplit);
       }
     } else {
       // No overflow, just update the current page
@@ -161,6 +127,47 @@ function AntistressDiary() {
         return newPages;
       });
     }
+  };
+
+  // Helper function to handle page overflow and creation
+  const handlePageOverflow = (index, contentBefore, contentAfter) => {
+    setPages(prevPages => {
+      const newPages = [...prevPages];
+      newPages[index] = { ...newPages[index], content: contentBefore };
+      
+      // Check if we need to create a new page
+      if (index === newPages.length - 1) {
+        // Create a new page with the overflow content
+        const isTop = !newPages[index].isTop;
+        const messagesArray = isTop ? topMessages.messages : bottomMessages.messages;
+        const randomIndex = Math.floor(Math.random() * messagesArray.length);
+        
+        newPages.push({
+          isTop,
+          messageIndex: randomIndex,
+          content: contentAfter
+        });
+      } else {
+        // Add overflow content to the beginning of the next page
+        const nextPageContent = newPages[index + 1].content;
+        newPages[index + 1] = {
+          ...newPages[index + 1],
+          content: contentAfter + (nextPageContent ? ' ' + nextPageContent : '')
+        };
+      }
+      
+      // Focus the next page's textarea after state update
+      setTimeout(() => {
+        if (textareaRefs.current[index + 1]) {
+          const nextTextarea = textareaRefs.current[index + 1];
+          nextTextarea.focus();
+          nextTextarea.selectionStart = contentAfter.length;
+          nextTextarea.selectionEnd = contentAfter.length;
+        }
+      }, 0);
+      
+      return newPages;
+    });
   };
 
   
@@ -290,7 +297,12 @@ function AntistressDiary() {
         {/* 🗑️ */}
       </button>
 
-      {showMessage && <div className={styles.releaseMessage}>Brilliantly done! 👏</div>}
+      {showMessage && <div className={styles.releaseMessage}>
+        <p style={{fontSize: '50px'}}>👍</p>
+        {/* <p>Brilliantly done!</p> */}
+        {/* <p>Good job!</p> */}
+        <p>Well done!</p>
+      </div>}
 
       <div className={styles.recycleBin}>
         <img className={styles.recycleBinImg} src="/recycle-bin.png" alt="recycle bin" />
