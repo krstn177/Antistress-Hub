@@ -10,6 +10,9 @@
   gap: 2rem;
   transition: all 0.5s ease-out;
   overflow-x: hidden; /* Prevent horizontal scrolling */
+  padding-bottom: calc(2rem + env(safe-area-inset-bottom));
+  min-height: -webkit-fill-available;
+  min-height: calc(var(--vh, 1vh) * 100);
 }
 
 .page {
@@ -473,7 +476,8 @@
 
 @media (max-width: 480px) {
   .container {
-    padding: 1rem 0.5rem; /* Further reduced padding */
+    padding: 1rem 0.5rem;
+    padding-bottom: calc(1rem + env(safe-area-inset-bottom));
   }
   
   .page {
@@ -505,12 +509,15 @@
     width: 60px;
     height: 60px;
     font-size: 30px;
-    top: auto; /* Override the 50% top position */
-    bottom: 20px;
+    top: auto;
+    bottom: max(20px, env(safe-area-inset-bottom));
     right: 20px;
-    transform: none; /* Remove the Y translation */
+    transform: none;
     border-radius: 50%;
     background-color: rgba(0, 128, 55, 0.8);
+    position: sticky;
+    margin-top: auto;
+    z-index: 1000;
   }
   
   .throwButton:hover {
@@ -595,6 +602,15 @@
   .changeTextButton::after,
   .throwButton::after {
     display: none;
+  }
+
+  /* Add styles for when keyboard is open */
+  @supports (-webkit-touch-callout: none) {
+    .throwButton {
+      position: sticky;
+      bottom: 0;
+      margin-bottom: env(safe-area-inset-bottom);
+    }
   }
 }
 

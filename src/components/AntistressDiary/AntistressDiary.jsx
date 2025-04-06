@@ -8,9 +8,17 @@ import bottomMessages from './bottomMessages.json'
 function AntistressDiary() {
   const [isAnimating, setIsAnimating] = useState(false)
   const [showMessage, setShowMessage] = useState(false)
+  const [releaseMessageIndex, setReleaseMessageIndex] = useState(0)
   const rowsPerPage = 10
   const [pages, setPages] = useState([{isTop: true, messageIndex: 0, content: ''}, {isTop: false, messageIndex: 0, content: ''}])
   const textareaRefs = useRef([]);
+
+  // Define the message variants
+  const releaseMessages = [
+    { emoji: '👍', text: 'Well done!' },
+    { emoji: '😉', text: 'Brilliantly done!' },
+    { emoji: '✔️', text: 'Good job!' }
+  ];
 
   useLayoutEffect(() => {
     window.scrollTo(0, 0);
@@ -21,6 +29,9 @@ function AntistressDiary() {
     // Show the recycle bin
     const recycleBin = document.getElementsByClassName(styles.recycleBin)[0];
     recycleBin.classList.add(styles.visible);
+
+    // Rotate to the next message
+    setReleaseMessageIndex(prevIndex => (prevIndex + 1) % releaseMessages.length);
 
     // Show message when papers are partway through the animation
     setTimeout(() => {
@@ -36,7 +47,6 @@ function AntistressDiary() {
     setTimeout(() => {
       setIsAnimating(false);
       recycleBin.classList.remove(styles.visible);
-      // setShowMessage(false);
       setPages([{isTop: true, messageIndex: 0, content: ''}, {isTop: false, messageIndex: 0, content: ''}]);
     }, 5000); 
   }
@@ -294,14 +304,11 @@ function AntistressDiary() {
         aria-label="Throw away pages"
       >
         <i className="fa-solid fa-trash"></i>
-        {/* 🗑️ */}
       </button>
 
       {showMessage && <div className={styles.releaseMessage}>
-        <p style={{fontSize: '50px'}}>👍</p>
-        {/* <p>Brilliantly done!</p> */}
-        {/* <p>Good job!</p> */}
-        <p>Well done!</p>
+        <p style={{fontSize: '65px', marginBottom: '5px'}}>{releaseMessages[releaseMessageIndex].emoji}</p>
+        <p style={{marginTop: '5px'}}>{releaseMessages[releaseMessageIndex].text}</p>
       </div>}
 
       <div className={styles.recycleBin}>

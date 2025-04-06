@@ -184,6 +184,10 @@
   font-size: 5vh;
   color: #face1d;
   text-align: justify;
+  word-break: break-word;
+  overflow-wrap: break-word;
+  max-width: 100%;
+  padding: 0 2rem;
 }
 
 .shortText {
