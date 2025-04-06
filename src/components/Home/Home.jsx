@@ -9,15 +9,15 @@ import { useEffect } from 'react'
 
 function Home() {
   useEffect(() => {
-    // Set background colors for home page - using a gradient-like color from your existing gradient
-    document.documentElement.style.setProperty('--page-background', '#673ab7')
-    document.documentElement.style.setProperty('--safe-area-background', '#673ab7')
+    // Set background colors directly
+    document.documentElement.style.backgroundColor = '#673ab7';
+    document.body.style.backgroundColor = '#673ab7';
     
     // Clean up when component unmounts
     return () => {
-      document.documentElement.style.setProperty('--page-background', '#ffffff')
-      document.documentElement.style.setProperty('--safe-area-background', '#ffffff')
-    }
+      document.documentElement.style.backgroundColor = '';
+      document.body.style.backgroundColor = '';
+    };
   }, [])
 
   return (

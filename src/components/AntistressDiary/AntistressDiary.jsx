@@ -35,14 +35,14 @@ function AntistressDiary() {
   }, []);
 
   useEffect(() => {
-    // Set background colors for diary page
-    document.documentElement.style.setProperty('--page-background', '#2d5a27');
-    document.documentElement.style.setProperty('--safe-area-background', '#2d5a27');
+    // Set background colors directly
+    document.documentElement.style.backgroundColor = '#2d5a27';
+    document.body.style.backgroundColor = '#2d5a27';
     
     // Clean up when component unmounts
     return () => {
-      document.documentElement.style.setProperty('--page-background', '#ffffff');
-      document.documentElement.style.setProperty('--safe-area-background', '#ffffff');
+      document.documentElement.style.backgroundColor = '';
+      document.body.style.backgroundColor = '';
     };
   }, []);
 

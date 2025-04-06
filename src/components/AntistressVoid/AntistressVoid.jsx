@@ -4,10 +4,37 @@ import styles from './AntistressVoid.module.css'
 
 function AntistressVoid() {
   const videoRef = useRef(null);
+  const textareaRef = useRef(null);
   const [text, setText] = useState('');
   const [isTextShort, setIsTextShort] = useState(false);
   const [isRolling, setIsRolling] = useState(false);
   const [isVideoLoaded, setIsVideoLoaded] = useState(false);
+  
+  // Focus the textarea when the component mounts
+  useEffect(() => {
+    if (textareaRef.current) {
+      textareaRef.current.focus();
+    }
+  }, []);
+  
+  // Focus the textarea when isRolling changes from true to false
+  useEffect(() => {
+    if (!isRolling && textareaRef.current) {
+      textareaRef.current.focus();
+    }
+  }, [isRolling]);
+  
+  useEffect(() => {
+    // Set background colors directly
+    document.documentElement.style.backgroundColor = '#000000';
+    document.body.style.backgroundColor = '#000000';
+    
+    // Clean up when component unmounts
+    return () => {
+      document.documentElement.style.backgroundColor = '';
+      document.body.style.backgroundColor = '';
+    };
+  }, []);
 
   const handleTextChange = (e) => {
     setText(e.target.value);
@@ -26,6 +53,13 @@ function AntistressVoid() {
       setTimeout(() => {
         setIsRolling(false);
         setText('');
+        
+        // Focus the textarea again after animation completes and component re-renders
+        setTimeout(() => {
+          if (textareaRef.current) {
+            textareaRef.current.focus();
+          }
+        }, 0);
       }, timeout);
     }
   };
@@ -34,17 +68,6 @@ function AntistressVoid() {
     setIsVideoLoaded(true);
   };
 
-  useEffect(() => {
-    // Set background colors for void page - using a dark space color
-    document.documentElement.style.setProperty('--page-background', '#000000');
-    document.documentElement.style.setProperty('--safe-area-background', '#000000');
-    
-    // Clean up when component unmounts
-    return () => {
-      document.documentElement.style.setProperty('--page-background', '#ffffff');
-      document.documentElement.style.setProperty('--safe-area-background', '#ffffff');
-    };
-  }, []);
 
   return (
     <div className={styles.container}>
@@ -84,12 +107,14 @@ function AntistressVoid() {
         ): (
           <div className={styles.textareaContainer}>
             <textarea 
+              ref={textareaRef}
               className={styles.textarea}
-              placeholder="Share your thoughts with the void..."
+              placeholder="Type your burdens here and let the void consume them..."
               maxLength={1000}
               rows={10}
               value={text}
               onChange={handleTextChange}
+              autoFocus
             />
             {text.length > 0 && (
               <p className={styles.characterCount}>
@@ -110,4 +135,4 @@ function AntistressVoid() {
   )
 }
 
-export default AntistressVoid 
+export default AntistressVoid
