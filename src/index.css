@@ -2,30 +2,25 @@
   box-sizing: border-box;
 }
 
-:root {
-  --page-background: #000000; /* Default fallback color */
-  --safe-area-background: var(--page-background);
-}
-
-html { 
+html, body, #root { 
   height: 100%; 
   overflow: auto; 
   scroll-behavior: smooth;
-  background-color: var(--page-background);
-}
-
-body {
-  height: 100%; 
-  padding: 0;
-  margin: 0;
-  background-color: var(--page-background);
+  min-height: 100%;
+  min-height: -webkit-fill-available; /* Important for iOS */
 }
 
 #root {
-  min-height: 100%;
   position: relative;
   display: flex;
   flex-direction: column;
+}
+
+/* iOS Safari specific fixes */
+@supports (-webkit-touch-callout: none) {
+  html, body {
+    min-height: -webkit-fill-available;
+  }
 }
 
 /* iOS notch area fix */
