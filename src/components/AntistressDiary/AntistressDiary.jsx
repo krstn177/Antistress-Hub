@@ -354,7 +354,7 @@ function AntistressDiary() {
       </div>}
 
       <div className={styles.recycleBin}>
-        <img className={styles.recycleBinImg} src="/recycle-bin.png" alt="recycle bin" />
+        <img className={styles.recycleBinImg} src="/pictures/recycle-bin.png" alt="recycle bin" />
       </div>
     </div>
   )
