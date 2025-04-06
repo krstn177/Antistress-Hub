@@ -24,6 +24,18 @@ function AntistressDiary() {
     window.scrollTo(0, 0);
   }, []);
 
+  useEffect(() => {
+    // Set background colors for diary page
+    document.documentElement.style.setProperty('--page-background', '#2d5a27');
+    document.documentElement.style.setProperty('--safe-area-background', '#2d5a27');
+    
+    // Clean up when component unmounts
+    return () => {
+      document.documentElement.style.setProperty('--page-background', '#ffffff');
+      document.documentElement.style.setProperty('--safe-area-background', '#ffffff');
+    };
+  }, []);
+
   const handleThrowAway = () => {
     setIsAnimating(true);
     // Show the recycle bin

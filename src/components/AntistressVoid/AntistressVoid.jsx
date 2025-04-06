@@ -1,4 +1,4 @@
-import { useRef, useState } from 'react'
+import { useRef, useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import styles from './AntistressVoid.module.css'
 
@@ -33,6 +33,18 @@ function AntistressVoid() {
   const handleVideoLoad = () => {
     setIsVideoLoaded(true);
   };
+
+  useEffect(() => {
+    // Set background colors for void page - using a dark space color
+    document.documentElement.style.setProperty('--page-background', '#000000');
+    document.documentElement.style.setProperty('--safe-area-background', '#000000');
+    
+    // Clean up when component unmounts
+    return () => {
+      document.documentElement.style.setProperty('--page-background', '#ffffff');
+      document.documentElement.style.setProperty('--safe-area-background', '#ffffff');
+    };
+  }, []);
 
   return (
     <div className={styles.container}>
