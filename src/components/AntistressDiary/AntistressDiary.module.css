@@ -4,7 +4,7 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  min-height: 100vh;
+  min-height: 120vh;
   position: relative;
   padding: 2rem 1rem; /* Reduced horizontal padding for mobile */
   gap: 2rem;
@@ -669,59 +669,5 @@
     width: 120px;
     height: 120px;
     bottom: 10px;
-  }
-}
-
-/* iOS-specific fixes */
-@supports (-webkit-touch-callout: none) {
-  /* iOS devices only */
-  .container {
-    /* Ensure the container extends below the keyboard by adding more padding at bottom */
-    padding-bottom: 180px; 
-    min-height: -webkit-fill-available;
-  }
-  
-  .throwButton {
-    /* Fix positioning for iOS devices */
-    position: fixed;
-    bottom: 90px; /* Position above keyboard height */
-    right: 20px;
-    top: auto;
-    transform: none;
-    z-index: 100; /* Ensure it stays above keyboard */
-  }
-  
-  .throwButton:hover {
-    transform: scale(1.1); /* Remove translateY on hover for iOS */
-  }
-  
-  /* Add extra padding to the last page to ensure content is visible above keyboard */
-  .page:last-of-type {
-    margin-bottom: 120px;
-  }
-  
-  /* Remove space below scroll area on iOS */
-  .textarea {
-    /* Prevent scrolling issues on iOS */
-    -webkit-overflow-scrolling: touch;
-  }
-}
-
-/* Additional iPhone-specific adjustments */
-@media (max-width: 480px) and (-webkit-min-device-pixel-ratio: 2) {
-  @supports (-webkit-touch-callout: none) {
-    /* iPhone-specific adjustments */
-    .container {
-      padding-bottom: 200px; /* Extra padding at bottom for iPhone */
-    }
-    
-    .throwButton {
-      bottom: 100px; /* Adjust for iPhone keyboard height */
-    }
-    
-    /* Fix white space at bottom */
-    .page:last-of-type {
-      margin-bottom: 150px;
-    }
   }
 }
