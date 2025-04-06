@@ -25,14 +25,14 @@ function AntistressVoid() {
   }, [isRolling]);
   
   useEffect(() => {
-    // Set background colors directly
-    document.documentElement.style.backgroundColor = '#000000';
-    document.body.style.backgroundColor = '#000000';
+    // Set background colors for void page - using a dark space color
+    document.documentElement.style.setProperty('--page-background', '#000000');
+    document.documentElement.style.setProperty('--safe-area-background', '#000000');
     
     // Clean up when component unmounts
     return () => {
-      document.documentElement.style.backgroundColor = '';
-      document.body.style.backgroundColor = '';
+      document.documentElement.style.setProperty('--page-background', '#ffffff');
+      document.documentElement.style.setProperty('--safe-area-background', '#ffffff');
     };
   }, []);
 
