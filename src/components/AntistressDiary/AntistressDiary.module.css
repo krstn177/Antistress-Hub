@@ -10,9 +10,6 @@
   gap: 2rem;
   transition: all 0.5s ease-out;
   overflow-x: hidden; /* Prevent horizontal scrolling */
-  padding-bottom: calc(2rem + env(safe-area-inset-bottom));
-  min-height: -webkit-fill-available;
-  min-height: calc(var(--vh, 1vh) * 100);
 }
 
 .page {
@@ -476,8 +473,7 @@
 
 @media (max-width: 480px) {
   .container {
-    padding: 1rem 0.5rem;
-    padding-bottom: calc(1rem + env(safe-area-inset-bottom));
+    padding: 1rem 0.5rem; /* Further reduced padding */
   }
   
   .page {
@@ -509,15 +505,12 @@
     width: 60px;
     height: 60px;
     font-size: 30px;
-    top: auto;
-    bottom: max(20px, env(safe-area-inset-bottom));
+    top: auto; /* Override the 50% top position */
+    bottom: 20px;
     right: 20px;
-    transform: none;
+    transform: none; /* Remove the Y translation */
     border-radius: 50%;
     background-color: rgba(0, 128, 55, 0.8);
-    position: sticky;
-    margin-top: auto;
-    z-index: 1000;
   }
   
   .throwButton:hover {
@@ -603,15 +596,6 @@
   .throwButton::after {
     display: none;
   }
-
-  /* Add styles for when keyboard is open */
-  @supports (-webkit-touch-callout: none) {
-    .throwButton {
-      position: sticky;
-      bottom: 0;
-      margin-bottom: env(safe-area-inset-bottom);
-    }
-  }
 }
 
 /* Fix for landscape orientation on mobile */
@@ -685,5 +669,59 @@
     width: 120px;
     height: 120px;
     bottom: 10px;
+  }
+}
+
+/* iOS-specific fixes */
+@supports (-webkit-touch-callout: none) {
+  /* iOS devices only */
+  .container {
+    /* Ensure the container extends below the keyboard by adding more padding at bottom */
+    padding-bottom: 180px; 
+    min-height: -webkit-fill-available;
+  }
+  
+  .throwButton {
+    /* Fix positioning for iOS devices */
+    position: fixed;
+    bottom: 90px; /* Position above keyboard height */
+    right: 20px;
+    top: auto;
+    transform: none;
+    z-index: 100; /* Ensure it stays above keyboard */
+  }
+  
+  .throwButton:hover {
+    transform: scale(1.1); /* Remove translateY on hover for iOS */
+  }
+  
+  /* Add extra padding to the last page to ensure content is visible above keyboard */
+  .page:last-of-type {
+    margin-bottom: 120px;
+  }
+  
+  /* Remove space below scroll area on iOS */
+  .textarea {
+    /* Prevent scrolling issues on iOS */
+    -webkit-overflow-scrolling: touch;
+  }
+}
+
+/* Additional iPhone-specific adjustments */
+@media (max-width: 480px) and (-webkit-min-device-pixel-ratio: 2) {
+  @supports (-webkit-touch-callout: none) {
+    /* iPhone-specific adjustments */
+    .container {
+      padding-bottom: 200px; /* Extra padding at bottom for iPhone */
+    }
+    
+    .throwButton {
+      bottom: 100px; /* Adjust for iPhone keyboard height */
+    }
+    
+    /* Fix white space at bottom */
+    .page:last-of-type {
+      margin-bottom: 150px;
+    }
   }
 }
