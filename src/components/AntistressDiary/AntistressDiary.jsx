@@ -4,14 +4,6 @@ import styles from './AntistressDiary.module.css'
 import topMessages from './topMessages.json'
 import bottomMessages from './bottomMessages.json'
 
-// Add this function at the top of your component, outside the main function
-const isIOSSafari = () => {
-  const ua = window.navigator.userAgent;
-  const iOS = !!ua.match(/iPad/i) || !!ua.match(/iPhone/i);
-  const webkit = !!ua.match(/WebKit/i);
-  const iOSSafari = iOS && webkit && !ua.match(/CriOS/i) && !ua.match(/FxiOS/i);
-  return iOSSafari;
-};
 
 function AntistressDiary() {
   const [isAnimating, setIsAnimating] = useState(false)
@@ -20,8 +12,6 @@ function AntistressDiary() {
   const rowsPerPage = 10
   const [pages, setPages] = useState([{isTop: true, messageIndex: 0, content: ''}, {isTop: false, messageIndex: 0, content: ''}])
   const textareaRefs = useRef([]);
-  const [isIOS, setIsIOS] = useState(false);
-  const containerRef = useRef(null);
 
   // Define the message variants
   const releaseMessages = [
@@ -44,11 +34,6 @@ function AntistressDiary() {
       document.documentElement.style.setProperty('--page-background', '#ffffff');
       document.documentElement.style.setProperty('--safe-area-background', '#ffffff');
     };
-  }, []);
-
-  // Add this effect to detect iOS on component mount
-  useEffect(() => {
-    setIsIOS(isIOSSafari());
   }, []);
 
   const handleThrowAway = () => {
@@ -319,34 +304,19 @@ function AntistressDiary() {
   }
 
   return (
-    <div className={styles.container} ref={containerRef}>
+    <div className={styles.container}>
       <Link to="/" className={styles.backLink}>
         ← Go back
       </Link>
       {pages.map((page, index) => renderPage(page, index))}
-      
-      {/* Conditionally render button based on platform */}
-      {isIOS ? (
-        <div className={styles.iosButtonContainer}>
-          <button 
-            className={`${styles.throwButton} ${styles.iosThrowButton}`}
-            onClick={handleThrowAway}
-            disabled={isAnimating}
-            aria-label="Throw away pages"
-          >
-            <i className="fa-solid fa-trash"></i>
-          </button>
-        </div>
-      ) : (
-        <button 
-          className={styles.throwButton}
-          onClick={handleThrowAway}
-          disabled={isAnimating}
-          aria-label="Throw away pages"
-        >
-          <i className="fa-solid fa-trash"></i>
-        </button>
-      )}
+      <button 
+        className={styles.throwButton}
+        onClick={handleThrowAway}
+        disabled={isAnimating}
+        aria-label="Throw away pages"
+      >
+        <i className="fa-solid fa-trash"></i>
+      </button>
 
       {showMessage && <div className={styles.releaseMessage}>
         <p style={{fontSize: '65px', marginBottom: '5px'}}>{releaseMessages[releaseMessageIndex].emoji}</p>
@@ -354,7 +324,7 @@ function AntistressDiary() {
       </div>}
 
       <div className={styles.recycleBin}>
-        <img className={styles.recycleBinImg} src="/pictures/recycle-bin.png" alt="recycle bin" />
+        <img className={styles.recycleBinImg} src="/recycle-bin.png" alt="recycle bin" />
       </div>
     </div>
   )

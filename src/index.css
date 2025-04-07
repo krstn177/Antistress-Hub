@@ -3,7 +3,7 @@
 }
 
 :root {
-  --page-background: #000000; /* Default fallback color */
+  --page-background: #ffffff; /* Default fallback color */
   --safe-area-background: var(--page-background);
 }
 
