@@ -14,7 +14,10 @@ function AntistressVoid() {
   };
 
   const handleRollText = () => {
-    text.length < 40 && setIsTextShort(true);
+    if (text.length < 60) {
+      setIsTextShort(true);
+    }
+
     if (text.trim()) {
       setIsRolling(true);
       
@@ -25,6 +28,7 @@ function AntistressVoid() {
       
       setTimeout(() => {
         setIsRolling(false);
+        setIsTextShort(false);
         setText('');
       }, timeout);
     }
@@ -84,6 +88,7 @@ function AntistressVoid() {
         ): (
           <div className={styles.textareaContainer}>
             <textarea 
+              autoFocus
               className={styles.textarea}
               placeholder="Share your thoughts with the void..."
               maxLength={1000}
