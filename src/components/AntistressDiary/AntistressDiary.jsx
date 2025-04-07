@@ -4,8 +4,16 @@ import styles from './AntistressDiary.module.css'
 import topMessages from './topMessages.json'
 import bottomMessages from './bottomMessages.json'
 
+const isIOSSafari = () => {
+  const ua = window.navigator.userAgent;
+  const iOS = !!ua.match(/iPad/i) || !!ua.match(/iPhone/i);
+  const webkit = !!ua.match(/WebKit/i);
+  const iOSSafari = iOS && webkit && !ua.match(/CriOS/i) && !ua.match(/FxiOS/i);
+  return iOSSafari;
+};
 
 function AntistressDiary() {
+  const [isIOS, setIsIOS] = useState(false);
   const [isAnimating, setIsAnimating] = useState(false)
   const [showMessage, setShowMessage] = useState(false)
   const [releaseMessageIndex, setReleaseMessageIndex] = useState(0)
@@ -25,6 +33,7 @@ function AntistressDiary() {
   }, []);
 
   useEffect(() => {
+    setIsIOS(isIOSSafari());
     // Set background colors for diary page
     document.documentElement.style.setProperty('--page-background', '#2d5a27');
     document.documentElement.style.setProperty('--safe-area-background', '#2d5a27');
@@ -309,14 +318,35 @@ function AntistressDiary() {
         ← Go back
       </Link>
       {pages.map((page, index) => renderPage(page, index))}
-      <button 
+      {/* <button 
         className={styles.throwButton}
         onClick={handleThrowAway}
         disabled={isAnimating}
         aria-label="Throw away pages"
       >
         <i className="fa-solid fa-trash"></i>
-      </button>
+      </button> */}
+      {isIOS ? (
+        <div className={styles.iosButtonContainer}>
+          <button 
+            className={`${styles.throwButton} ${styles.iosThrowButton}`}
+            onClick={handleThrowAway}
+            disabled={isAnimating}
+            aria-label="Throw away pages"
+          >
+            <i className="fa-solid fa-trash"></i>
+          </button>
+        </div>
+      ) : (
+        <button 
+          className={styles.throwButton}
+          onClick={handleThrowAway}
+          disabled={isAnimating}
+          aria-label="Throw away pages"
+        >
+          <i className="fa-solid fa-trash"></i>
+        </button>
+      )}
 
       {showMessage && <div className={styles.releaseMessage}>
         <p style={{fontSize: '65px', marginBottom: '5px'}}>{releaseMessages[releaseMessageIndex].emoji}</p>
