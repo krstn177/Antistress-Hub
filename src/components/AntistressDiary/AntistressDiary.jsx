@@ -318,34 +318,28 @@ function AntistressDiary() {
         ← Go back
       </Link>
       {pages.map((page, index) => renderPage(page, index))}
-      {/* <button 
-        className={styles.throwButton}
-        onClick={handleThrowAway}
-        disabled={isAnimating}
-        aria-label="Throw away pages"
-      >
-        <i className="fa-solid fa-trash"></i>
-      </button> */}
-      {isIOS ? (
-        <div className={styles.iosButtonContainer}>
+      {!isAnimating && (
+        isIOS ? (
+          <div className={styles.iosButtonContainer}>
+            <button 
+              className={`${styles.throwButton} ${styles.iosThrowButton}`}
+              onClick={handleThrowAway}
+              disabled={isAnimating}
+              aria-label="Throw away pages"
+            >
+              <i className="fa-solid fa-trash"></i>
+            </button>
+          </div>
+        ) : (
           <button 
-            className={`${styles.throwButton} ${styles.iosThrowButton}`}
+            className={styles.throwButton}
             onClick={handleThrowAway}
             disabled={isAnimating}
             aria-label="Throw away pages"
           >
             <i className="fa-solid fa-trash"></i>
           </button>
-        </div>
-      ) : (
-        <button 
-          className={styles.throwButton}
-          onClick={handleThrowAway}
-          disabled={isAnimating}
-          aria-label="Throw away pages"
-        >
-          <i className="fa-solid fa-trash"></i>
-        </button>
+        )
       )}
 
       {showMessage && <div className={styles.releaseMessage}>
@@ -354,7 +348,7 @@ function AntistressDiary() {
       </div>}
 
       <div className={styles.recycleBin}>
-        <img className={styles.recycleBinImg} src="/recycle-bin.png" alt="recycle bin" />
+        <img className={styles.recycleBinImg} src="/pictures/recycle-bin.png" alt="recycle bin" />
       </div>
     </div>
   )
