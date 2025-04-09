@@ -18,7 +18,26 @@ function AntistressDiary() {
   const [showMessage, setShowMessage] = useState(false)
   const [releaseMessageIndex, setReleaseMessageIndex] = useState(0)
   const rowsPerPage = 10
-  const [pages, setPages] = useState([{isTop: true, messageIndex: 0, content: ''}, {isTop: false, messageIndex: 0, content: ''}])
+  
+  // Add this helper function
+  const getRandomMessageIndex = (isTop) => {
+    const messagesArray = isTop ? topMessages.messages : bottomMessages.messages;
+    return Math.floor(Math.random() * messagesArray.length);
+  }
+  
+  const [pages, setPages] = useState([
+    {
+      isTop: true, 
+      messageIndex: getRandomMessageIndex(true),
+      content: ''
+    }, 
+    {
+      isTop: false, 
+      messageIndex: getRandomMessageIndex(false),
+      content: ''
+    }
+  ]);
+  
   const textareaRefs = useRef([]);
 
   // Define the message variants
@@ -68,7 +87,18 @@ function AntistressDiary() {
     setTimeout(() => {
       setIsAnimating(false);
       recycleBin.classList.remove(styles.visible);
-      setPages([{isTop: true, messageIndex: 0, content: ''}, {isTop: false, messageIndex: 0, content: ''}]);
+      setPages([
+        {
+          isTop: true, 
+          messageIndex: getRandomMessageIndex(true),
+          content: ''
+        }, 
+        {
+          isTop: false, 
+          messageIndex: getRandomMessageIndex(false),
+          content: ''
+        }
+      ]);
     }, 5000); 
   }
 
@@ -94,17 +124,15 @@ function AntistressDiary() {
 
   const handleNewPage = () => {
     if (pages[pages.length - 1].isTop) {
-      const randomIndex = Math.floor(Math.random() * bottomMessages.messages.length)
       setPages([...pages, {
         isTop: false, 
-        messageIndex: randomIndex,
+        messageIndex: getRandomMessageIndex(false),
         content: ''
       }])
     } else {
-      const randomIndex = Math.floor(Math.random() * topMessages.messages.length)
       setPages([...pages, {
         isTop: true, 
-        messageIndex: randomIndex,
+        messageIndex: getRandomMessageIndex(true),
         content: ''
       }])
     }
@@ -221,9 +249,7 @@ function AntistressDiary() {
                 <span><i className="fa-regular fa-circle-left"></i></span>
               </button>
               <div className={styles.messageText}>
-                {message.lines.map((line, lineIndex) => (
-                  <p key={lineIndex}>{line}</p>
-                ))}
+                <p>{message}</p>
               </div>
               <button 
                 id={styles.nextBtn}
@@ -272,9 +298,7 @@ function AntistressDiary() {
                 <span><i className="fa-regular fa-circle-left"></i></span>
               </button>
               <div className={styles.messageText}>
-                {message.lines.map((line, lineIndex) => (
-                  <p key={lineIndex}>{line}</p>
-                ))}
+                <p>{message}</p>
               </div>
               <button 
                 id={styles.nextBtn}
