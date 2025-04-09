@@ -90,7 +90,7 @@ function AntistressVoid() {
             <textarea 
               autoFocus
               className={styles.textarea}
-              placeholder="Share your thoughts with the void..."
+              placeholder="Type your thoughts to cast them into the void..."
               maxLength={1000}
               rows={10}
               value={text}
