@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom'
 import styles from './Footer.module.css'
 
 export function Footer() {
@@ -17,9 +18,9 @@ export function Footer() {
             Black Hole Stock Videos by Vecteezy
           </a>
           <span className={styles.separator}>•</span>
-          <a href="/terms" className={styles.link}>Terms & Conditions</a>
+          <Link to="/terms" className={styles.link}>Terms & Conditions</Link>
           <span className={styles.separator}>•</span>
-          <a href="/privacy" className={styles.link}>Privacy Policy</a>
+          <Link to="/privacy" className={styles.link}>Privacy Policy</Link>
         </div>
       </div>
     </footer>
