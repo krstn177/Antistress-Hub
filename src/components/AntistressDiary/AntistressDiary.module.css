@@ -473,7 +473,7 @@
 
 @media (max-width: 480px) {
   .container {
-    padding: 1rem 0.5rem; /* Further reduced padding */
+    padding: 4rem 0.5rem; /* Further reduced padding */
   }
   
   .page {
