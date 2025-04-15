@@ -188,7 +188,7 @@
     transform: translate(-50%, -25%) scale(0.1) rotate(-15deg);
     opacity: 0.7;
   }
-  45% {
+  40% {
     transform: translate(-50%, -10%) scale(0.01) rotate(15deg);
     opacity: 0;
   }
@@ -202,7 +202,7 @@
   position: absolute; /* Make the position absolute */
   top: 45%; /* Center vertically */
   left: 50%; /* Center horizontally */
-  animation: throwPaper 5.05s ease-in;
+  animation: throwPaper 6.05s ease-in;
   transform: translate(-50%, -50%);
   opacity: 1; /* Start with full opacity */
 }
@@ -211,16 +211,16 @@
   0% {
     transform: translate(-50%, -15%);
   }
-  35% {
+  42% {
     transform: translate(-50%, -15%) rotate(0deg);
   }
-  40% {
+  50% {
     transform: translate(-50%, -15%) rotate(10deg);
   }
-  45% {
+  55% {
     transform: translate(-50%, -15%) rotate(-10deg);
   }
-  50% {
+  60% {
     transform: translate(-50%, -15%) rotate(0deg);
   }
   100% {
@@ -242,7 +242,7 @@
 .recycleBin.visible {
   opacity: 1; /* Show when animating */
   z-index: 50;
-  animation: recycleBinJerk 5.05s ease;
+  animation: recycleBinJerk 6.05s ease;
 }
 
 .recycleBinImg {
@@ -562,20 +562,20 @@
       z-index: 100;
       opacity: 1;
     }
-    10% {
+    5% {
       transform: translate(-50%, -60%) scale(0.7) rotate(-15deg);
       opacity: 1;
     }
-    25% {
+    15% {
       transform: translate(-50%, -70%) scale(0.4) rotate(15deg);
       z-index: 25;
       opacity: 0.9;
     }
-    40% {
-      transform: translate(-50%, -20%) scale(0.1) rotate(-15deg);
+    30% {
+      transform: translate(-50%, -15%) scale(0.1) rotate(-15deg);
       opacity: 0.7;
     }
-    65% {
+    55% {
       transform: translate(-50%, -10%) scale(0.01) rotate(15deg);
       opacity: 0;
     }

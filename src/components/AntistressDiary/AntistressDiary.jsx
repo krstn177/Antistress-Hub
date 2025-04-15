@@ -76,12 +76,12 @@ function AntistressDiary() {
     // Show message when papers are partway through the animation
     setTimeout(() => {
       setShowMessage(true);
-    }, 2800);
+    }, 3800);
 
     // Hide message before the animation ends
     setTimeout(() => {
       setShowMessage(false);
-    }, 4800);
+    }, 5800);
 
     // Reset pages after animation completes
     setTimeout(() => {
@@ -99,7 +99,7 @@ function AntistressDiary() {
           content: ''
         }
       ]);
-    }, 5000); 
+    }, 6000); 
   }
 
   const handleChangeMessage = (index, direction) => {
